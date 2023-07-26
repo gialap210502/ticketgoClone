@@ -1,0 +1,15 @@
+.footer {
+    background: #434343;
+    color: #fff;
+    padding: 40px 0;
+    font-family: "Open Sans";
+    font-size: 14px;
+}
+a{
+    color: #a19898;
+    text-decoration: none;
+}
+
+.socialIcon{
+    padding-top: 15px;
+}
