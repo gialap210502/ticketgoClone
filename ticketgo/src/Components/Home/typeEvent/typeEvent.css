@@ -1,0 +1,33 @@
+.event_type {
+    margin-bottom: 30px;
+}
+.col-lg-6 {
+    width: 50%;
+}
+h2 {
+    color: #333;
+    font-size: 20px;
+    font-weight: 700;
+    font-family: "Open Sans";
+    text-transform: uppercase;
+    border-left: 5px solid #ff672a;
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-left: 15px;
+}
+.pull-right {
+    float: right;
+}
+.pull-left {
+    float: left;
+}
+.btn_create_event_top {
+    color: #fff!important;
+    font-size: 14px;
+    background: #ff672a;
+    padding: 11px 40px;
+    border: 1px solid #ff672a!important;
+    font-family: "Open Sans";
+    transition: ease-in-out .2s;
+}

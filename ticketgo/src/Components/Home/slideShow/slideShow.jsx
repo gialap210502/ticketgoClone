@@ -14,8 +14,7 @@ const slideShow = () => {
                     alt="First slide"
                 />
                 <Carousel.Caption>
-                    <h3>First Slide</h3>
-                    <p>This is the caption for the first slide.</p>
+                    <h3>Chương trình hòa nhạc đặc biệt: VNSO Holiday concert 2023 - Hòa nhạc mùa hè.    </h3>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -25,8 +24,7 @@ const slideShow = () => {
                     alt="Second slide"
                 />
                 <Carousel.Caption>
-                    <h3>Second Slide</h3>
-                    <p>This is the caption for the second slide.</p>
+                    <h3>Manga Comic Con Việt Nam 2023</h3>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -36,8 +34,7 @@ const slideShow = () => {
                     alt="Third slide"
                 />
                 <Carousel.Caption>
-                    <h3>Third Slide</h3>
-                    <p>This is the caption for the third slide.</p>
+                    <h3>Show diễn "Tinh Hoa Bắc Bộ"</h3>
                 </Carousel.Caption>
             </Carousel.Item>
         </Carousel>

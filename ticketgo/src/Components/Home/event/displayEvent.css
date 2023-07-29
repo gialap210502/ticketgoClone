@@ -1,0 +1,17 @@
+.row_5 {
+    margin-right: -5px;
+    margin-left: -5px;
+}
+.col-sm-6 {
+    width: 50%;
+}
+.row_10 {
+    margin-right: -10px;
+    margin-left: -10px;
+}
+.cover_event_home {
+    position: relative;
+}
+meta {
+    display: none;
+}

@@ -1,12 +1,11 @@
 import Event from '../Home/event/displayEvent';
 import SlideShow from '../Home/slideShow/slideShow';
-// import EvenType from '../Home/eventtype';
-
+import TypeEvent from '../Home/typeEvent/typeEvent';
 function HomePage(){
     return(
         <div>
             <SlideShow/>
-            {/* <EvenType/> */}
+            <TypeEvent/>
             <Event/>
         </div>
     )
