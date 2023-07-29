@@ -1,8 +1,9 @@
 import React from 'react';
 import './Nav.css';
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+import { Dropdown } from 'react-bootstrap';
 const Nav = () => {
     return (
+
         <div id="header" className="fixed">
             <div className="container">
                 <div className="row_pc">
@@ -31,16 +32,16 @@ const Nav = () => {
                                     <a class="nav-link disabled" href="#"> Register</a>
                                 </li>
                                 <li class="nav-item">
-                                    <div class="nav-link dropdown">
-                                        <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
                                             
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Link 1</a></li>
-                                            <li><a class="dropdown-item" href="#">Link 2</a></li>
-                                            <li><a class="dropdown-item" href="#">Link 3</a></li>
-                                        </ul>
-                                    </div>
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item href="#one">English</Dropdown.Item>
+                                            <Dropdown.Item href="#two">Vietnamese</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown>
                                 </li>
                             </ul>
                         </div>

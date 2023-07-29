@@ -1,0 +1,33 @@
+.navbar__top {
+    background: transparent linear-gradient(90deg,#022265 0,#8417e1 100%) 0 0 no-repeat padding-box;
+}
+.container {
+    width: 1255px;
+    max-width: 100%;
+}
+.row_pc {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.row {
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.navbar-nav {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+li{
+    padding-right: 10px;
+}
+.navbar-right {
+    float: right!important;
+    margin-right: -15px;
+}
+
+.a-nav{
+    color: #fff;
+}

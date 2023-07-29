@@ -3,14 +3,15 @@ import './App.css';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Footer from "./Components/Footer/Footer";
 import Nav from "./Components/Nav/Nav";
-import header from "./Components/headNav/header";
+import NavHeader from './Components/headNav/headerNav';
 
 
 function App() {
   return (
     <Router>
+     
       <Nav />
-      <header />
+      <NavHeader />
       {/* <NavBar />
       <Routes>
         <Route path="/" element={<Login />} />

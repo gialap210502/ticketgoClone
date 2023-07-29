@@ -4,4 +4,5 @@ form{
 .header_bar {
     position: relative;
     padding-left: 150px;
+    padding-top: 15px;
 }
