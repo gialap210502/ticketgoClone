@@ -1,6 +1,6 @@
 import React from 'react';
 import './headerNav.css';
-const NavHeader = () => {
+function NavHeader(){
     return (
         <div className="navbar__top">
             <div className="container">

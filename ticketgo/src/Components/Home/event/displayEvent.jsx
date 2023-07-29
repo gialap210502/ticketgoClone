@@ -1,8 +1,8 @@
 import React from 'react';
-import slideShow from '../slideShow/slideShow';
+// import slideShow from '../slideShow/slideShow';
 const eventDisplay = () => {
     return (
         <p>Hello</p>
     );
 };
-export default eventDisplay;
+export default eventDisplay;    

@@ -1,7 +1,7 @@
 import React from 'react';
 import './Nav.css';
 import { Dropdown } from 'react-bootstrap';
-const Nav = () => {
+function Nav (){
     return (
 
         <div id="header" className="fixed">
