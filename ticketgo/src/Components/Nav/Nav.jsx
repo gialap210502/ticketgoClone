@@ -1,5 +1,6 @@
 import React from 'react';
 import './Nav.css';
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 const Nav = () => {
     return (
         <div id="header" className="fixed">
