@@ -1,9 +1,16 @@
 import React from 'react';
 import './Nav.css';
 import { Dropdown } from 'react-bootstrap';
-function Nav (){
-    return (
+import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import InputGroup from 'react-bootstrap/InputGroup';
+function Nav() {
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    return (
         <div id="header" className="fixed">
             <div className="container">
                 <div className="row_pc">
@@ -26,7 +33,9 @@ function Nav (){
                         <div className="col-xs-8 col-sm-6 col-md-4 col-lg-4 header_bar">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <a class="nav-link disabled" href="#">Login</a>
+                                    <Button variant="primary" onClick={handleShow}>
+                                        Login
+                                    </Button>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link disabled" href="#"> Register</a>
@@ -34,7 +43,7 @@ function Nav (){
                                 <li class="nav-item">
                                     <Dropdown>
                                         <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                            
+
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
@@ -49,7 +58,28 @@ function Nav (){
                     </div>
                 </div>
             </div>
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header style={{ backgroundColor: 'rgb(255, 103, 42)', textAlign: 'center' }}>
+                    <Modal.Title style={{ color: '#fff', fontSize: '16px', margin: 'auto' }}>ĐĂNG NHẬP</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <InputGroup className="mb-3" style={{margin: 'auto', left: '20%'}}>
+                        <InputGroup.Text id="basic-addon1" style={{ backgroundColor: "#1558cb" }} >
+                            <a className="fa-brands fa-facebook fa-2x" style={{ color: "#fff" }}  href="https://www.facebook.com/ticketgo.vn/"></a>
+                        </InputGroup.Text>
+                        <InputGroup.Text style={{ backgroundColor: "#1558cb", color: "#fff" }}>Đăng nhập bằng Facebook</InputGroup.Text>
+                    </InputGroup>
+                    <InputGroup className="mb-3" style={{margin: 'auto', left: '20%'}}>
+                        <InputGroup.Text id="basic-addon1" style={{ backgroundColor: "red" }} >
+                            <a className="fa-brands fa-google fa-2xl" style={{ color: "#fff" }}  href="https://www.facebook.com/ticketgo.vn/"></a>
+                        </InputGroup.Text>
+                        <InputGroup.Text style={{ backgroundColor: "red", color: "#fff" }}>Đăng nhập bằng Facebook</InputGroup.Text>
+                    </InputGroup>
+
+                </Modal.Body>
+            </Modal>
         </div>
+
     );
 };
 export default Nav;
