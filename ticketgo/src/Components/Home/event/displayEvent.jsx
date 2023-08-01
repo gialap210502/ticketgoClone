@@ -242,7 +242,7 @@ const eventDisplay = () => {
                     <div className="rounded">
                         <div>
                             <a href="#">
-                                <img style={{ height: '200px', maxWidth: '400px'}} src={slide3} />
+                                <img style={{ height: '200px', maxWidth: '400px' }} src={slide3} />
                             </a>
                             <div className="row">
                                 <div className="col-4">
@@ -322,7 +322,7 @@ const eventDisplay = () => {
             </div>
             <div className="text-center" style={{ paddingTop: '10px', paddingBottom: '20px' }}>
                 <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12" id="contacts">
-                    <p>Liên hệ bộ phận phát triển kinh doanh, vui lòng gọi: <a style={{color: '#ff672a'}} href="tel:08.999.80.818" class="link">08.999.80.818</a> - <a  style={{color: '#ff672a'}} href="tel:0243.788.00.99" class="link">0243.788.00.99</a>
+                    <p>Liên hệ bộ phận phát triển kinh doanh, vui lòng gọi: <a style={{ color: '#ff672a' }} href="tel:08.999.80.818" class="link">08.999.80.818</a> - <a style={{ color: '#ff672a' }} href="tel:0243.788.00.99" class="link">0243.788.00.99</a>
                     </p>
                 </div>
             </div>
