@@ -97,7 +97,7 @@ function Footer(){
                                 style={{ color: "#1558cb", width: "50px", height: "50px" }}
                                 href="https://www.pnkedin.com/in/news-ticketgo-72b814161/"></a>
                             <a class="fa fa-youtube fa-2x"
-                                style={{ color: "orange", width: "50px", height: "50px" }}
+                                style={{ color: "red", width: "50px", height: "50px" }}
                                 href="https://www.youtube.com/channel/UCtm90qWLPvNaDbYcsbkEO4A"></a>
                         </div>
                         <div className="company_id_footer">

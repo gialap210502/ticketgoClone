@@ -1,0 +1,17 @@
+.panel-default>.panel-heading {
+    background-color: #ff672a;
+    border-color: #ff672a;
+    color: #fff;
+}
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+.info_ticket_detail h4>a {
+    display: inline-block;
+    width: 100%;
+    font-family: "Open Sans";
+    font-size: 14px;
+}
