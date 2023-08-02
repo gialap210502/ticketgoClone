@@ -3,7 +3,19 @@ import i3 from '../../assets/mediaImg/i3.jpg';
 import i21 from '../../assets/mediaImg/i21.jpg';
 import i22 from '../../assets/mediaImg/i22.jpg';
 import i25 from '../../assets/mediaImg/i25.jpg';
-const eventDetails = () => {
+import { useState } from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
+import Collapse from 'react-bootstrap/Collapse';
+const EventDetails = () => {
+    const [show, setShow] = useState(false);
+    const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [open3, setOpen3] = useState(false);
+    const [open4, setOpen4] = useState(false);
+    const [open5, setOpen5] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     return (
         <div>
             <div class="item">
@@ -54,7 +66,7 @@ const eventDetails = () => {
                         </div>
                     </div>
                     <div className="col-4">
-                        <div className="btn btn-primary flex w-100" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '20px', textAlign: 'center' }}>
+                        <div className="btn btn-primary flex w-100" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '20px', textAlign: 'center' }} onClick={handleShow}>
 
                             MUA NGAY
 
@@ -387,7 +399,231 @@ const eventDetails = () => {
 
                 </div>
             </div>
+            <Modal show={show} size='xl' onHide={handleClose}>
+                <Modal.Body>
+                    <div className="container">
+                        <Form>
+                            <div className='row'>
+                                <div className='col-md-4' style={{ maxWidth: '70%', marginRight: '0px' }}>
+                                    <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
+                                        <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>THÔNG TIN KHÁCH HÀNG</h2>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Họ Tên:</Form.Label>
+                                            <Form.Control type="email" placeholder="" />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Điện thoại:</Form.Label>
+                                            <Form.Control type="email" placeholder="" />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Email:</Form.Label>
+                                            <Form.Control type="email" placeholder="" />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Địa chỉ:</Form.Label>
+                                            <Form.Control type="email" placeholder="" />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Ngày xem show/sự kiện:</Form.Label>
+                                            <Form.Control type="email" placeholder="" />
+                                        </Form.Group>
+
+                                    </div>
+                                    <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
+                                        <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>LỰA CHỌN THANH TOÁN</h2>
+                                        <div class="card-header">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="radio" name="optradio" value="option2" onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} />
+                                                <label class="form-check-label" for="radio" style={{ fontSize: '12px' }}>Thẻ tín dụng mở tại Việt Nam</label>
+                                            </div>
+                                        </div>
+                                        <Collapse in={open}>
+                                            <div id="example-collapse-text" style={{ fontSize: '12px' }}>
+                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                            </div>
+                                        </Collapse>
+                                        <div class="card-header">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2" onClick={() => setOpen2(!open2)} aria-controls="example-collapse-text2" aria-expanded={open2} />
+                                                <label class="form-check-label" for="radio2" style={{ fontSize: '12px' }}>ATM / Internet Banking </label>
+                                            </div>
+                                        </div>
+                                        <Collapse in={open2}>
+                                            <div id="example-collapse-text2" style={{ fontSize: '12px' }}>
+                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                            </div>
+                                        </Collapse>
+                                        <div class="card-header">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="radio3" name="optradio" value="option2" onClick={() => setOpen3(!open3)} aria-controls="example-collapse-text3" aria-expanded={open3} />
+                                                <label class="form-check-label" for="radio3" style={{ fontSize: '12px' }}> Chuyển khoản</label>
+                                            </div>
+                                        </div>
+                                        <Collapse in={open3}>
+                                            <div id="example-collapse-text3" style={{ fontSize: '12px' }}>
+                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công. Sau khi chúng tôi xác nhận giao dịch chuyển khoản thành công.
+                                                Xem thông tin chuyển khoản tại đây
+                                            </div>
+                                        </Collapse>
+                                        <div class="card-header">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="radio4" name="optradio" value="option2" onClick={() => setOpen4(!open4)} aria-controls="example-collapse-text4" aria-expanded={open4} />
+                                                <label class="form-check-label" for="radio4" style={{ fontSize: '12px' }}>Thẻ tín dụng quốc tế </label>
+                                            </div>
+                                        </div>
+                                        <Collapse in={open4}>
+                                            <div id="example-collapse-text4" style={{ fontSize: '12px' }}>
+                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                            </div>
+                                        </Collapse>
+                                        <div class="card-header">
+                                            <div class="form-check">
+                                                <input type="radio" class="form-check-input" id="radio5" name="optradio" value="option2" onClick={() => setOpen5(!open5)} aria-controls="example-collapse-text5" aria-expanded={open5} />
+                                                <label class="form-check-label" for="radio5" style={{ fontSize: '12px' }}> Ví điện tử MoMo</label>
+                                            </div>
+                                        </div>
+                                        <Collapse in={open5}>
+                                            <div id="example-collapse-text5" style={{ fontSize: '12px' }}>
+                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                            </div>
+                                        </Collapse>
+                                    </div>
+                                </div>
+                                <div className='col-md-8'>
+                                    <div>
+                                        <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>Giỏ hàng của bạn</h2>
+                                        <div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row border-bottom">
+                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                <span class="col-3 border-end">150,000 VNĐ</span>
+                                                <div class="col-3 ">
+                                                    <div class="input-group mb-3 input-group-sm">
+                                                        <button type="button" class="btn btn-danger">-</button>
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info">+</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="row" style={{ paddingTop: '20px' }}>
+                                            <div class="col-4">
+                                                <label for="email" class="form-label">Mã giảm giá</label>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" />
+                                                    <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Kiểm tra</button>
+                                                </div>
+                                            </div>
+                                            <div className="row" style={{ paddingTop: '20px' }}>
+                                                <div class="col-8 border" >
+                                                    <div style={{ paddingTop: '7px', }}>
+                                                        Tổng cộng
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-4 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
+                                                    <p style={{ float: 'right', paddingTop: '7px' }}>0 VNĐ</p>
+                                                </div>
+                                            </div>
+                                            <div className="row" style={{ paddingTop: '20px' }}>
+                                                <div class="form-check">
+                                                    <input type="checkbox" className="form-check-input" id="checkTerm" name="option1" value="something" />
+                                                    <label className="form-check-label" for="checkTerm">Tôi đồng ý với các Điều khoản & Chính sách của Tickego.vn</label>
+                                                </div>
+                                                <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Tiếp tục thanh toán</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Form>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <div className="btn btn-primary " style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center' }} onClick={handleClose}>
+                        Đóng
+                    </div>
+                </Modal.Footer>
+            </Modal>
         </div>
+
     );
 };
-export default eventDetails;  
+export default EventDetails;  

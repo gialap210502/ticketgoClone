@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import InputGroup from 'react-bootstrap/InputGroup';
+import Form from 'react-bootstrap/Form';
 function Nav() {
     const [show, setShow] = useState(false);
 
@@ -63,18 +64,35 @@ function Nav() {
                     <Modal.Title style={{ color: '#fff', fontSize: '16px', margin: 'auto' }}>ĐĂNG NHẬP</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <InputGroup className="mb-3" style={{margin: 'auto', left: '20%'}}>
-                        <InputGroup.Text id="basic-addon1" style={{ backgroundColor: "#1558cb" }} >
-                            <a className="fa-brands fa-facebook fa-2x" style={{ color: "#fff" }}  href="https://www.facebook.com/ticketgo.vn/"></a>
-                        </InputGroup.Text>
-                        <InputGroup.Text style={{ backgroundColor: "#1558cb", color: "#fff" }}>Đăng nhập bằng Facebook</InputGroup.Text>
-                    </InputGroup>
-                    <InputGroup className="mb-3" style={{margin: 'auto', left: '20%'}}>
-                        <InputGroup.Text id="basic-addon1" style={{ backgroundColor: "red" }} >
-                            <a className="fa-brands fa-google fa-2xl" style={{ color: "#fff" }}  href="https://www.facebook.com/ticketgo.vn/"></a>
-                        </InputGroup.Text>
-                        <InputGroup.Text style={{ backgroundColor: "red", color: "#fff" }}>Đăng nhập bằng Facebook</InputGroup.Text>
-                    </InputGroup>
+                    <Form>
+                        <InputGroup className="mb-3" style={{ margin: 'auto', left: '20%' }}>
+                            <InputGroup.Text id="basic-addon1" style={{ backgroundColor: "#1558cb" }} >
+                                <a className="fa-brands fa-facebook fa-2x" style={{ color: "#fff" }} href="https://www.facebook.com/ticketgo.vn/"></a>
+                            </InputGroup.Text>
+                            <InputGroup.Text className="d-grid" style={{ backgroundColor: "#1558cb", color: "#fff", width: '220px' }}>Đăng nhập bằng Facebook</InputGroup.Text>
+                        </InputGroup>
+                        <InputGroup className="mb-3" style={{ margin: 'auto', left: '20%' }}>
+                            <InputGroup.Text id="basic-addon1" style={{ backgroundColor: "red" }} >
+                                <a className="fa-brands fa-google fa-2xl" style={{ color: "#fff" }} href="https://www.facebook.com/ticketgo.vn/"></a>
+                            </InputGroup.Text>
+                            <InputGroup.Text className="d-grid" style={{ backgroundColor: "red", color: "#fff", width: '220px' }}>Đăng nhập bằng Google</InputGroup.Text>
+                        </InputGroup>
+
+                        <Form.Group className="mb-3 " controlId="exampleForm.ControlInput1">
+                            <Form.Control type="email" placeholder="Email" />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                            <Form.Control type="email" placeholder="Mật khẩu" />
+                        </Form.Group>
+                        <div className="form-check">
+                            <input class="form-check-input" type="checkbox" id="check1" name="option1" value="something" checked />
+                            <label class="form-check-label">Ghi nhớ đăng nhập</label>
+                            <a href="#" style={{ float: 'right' }}>Quên mật khẩu?</a>
+                        </div>
+                        <div className="d-grid">
+                            <button type="submit" className="btn btn-block" style={{ backgroundColor: 'rgb(255, 103, 42)', color: '#fff', fontSize: '20px', fontWeight: 'bold' }}>ĐĂNG NHẬP</button>
+                        </div>
+                    </Form>
 
                 </Modal.Body>
             </Modal>
