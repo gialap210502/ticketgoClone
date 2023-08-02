@@ -8,7 +8,7 @@ const publicRoutes = [
     {path:'/register', component:Register, layout:null}, 
     {path:'/event/category/am-nhac', component:EventMusic},
     {path:'/event/tenEvent', component:EventDetails},
-    {path:'/Order', component:Order}
+    {path:'/Order', component:Order, layout:1}
 ];
 
 export {publicRoutes}

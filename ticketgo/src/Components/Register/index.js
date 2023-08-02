@@ -4,7 +4,7 @@ const register = () => {
     return (
         <section classNameName="vh-100 bg-image" >
             <div className="mask d-flex align-items-center h-100 gradient-custom-3">
-                <div className="container h-100">
+                <div className="container h-100 mt-5 mb-5">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col-12 col-md-9 col-lg-7 col-xl-6">
                             <div className="card" style={{ borderRadius: '15px' }}>
