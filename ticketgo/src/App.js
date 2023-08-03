@@ -1,7 +1,6 @@
 
 import './App.css';
 import { LayoutD } from './Components/Layout/DefaultLayout/index';
-import { LayoutManager } from './Components/manageLayout/ManageLayout/index';
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { publicRoutes } from './routes';
@@ -16,9 +15,7 @@ function App() {
             let Layout = LayoutD
             if (route.Layout) {
               Layout = route.layout
-            } else if (route.layout === 1) {
-              Layout = LayoutManager
-            } else if (route.layout === null) {
+            }else if (route.layout === null) {
               Layout = Fragment
             }
             return (

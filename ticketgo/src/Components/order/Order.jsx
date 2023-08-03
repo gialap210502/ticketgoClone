@@ -1,6 +1,6 @@
 import React from 'react';
 import i26 from '../../assets/mediaImg/i26.jpg';
-const EventMusicDisplay = () => {
+const Order = () => {
     return (
         <div className="container mt-3 mb-3">
             <div className="row">
@@ -97,4 +97,4 @@ const EventMusicDisplay = () => {
     );
 };
 
-export default EventMusicDisplay;
+export default Order;
