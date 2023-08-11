@@ -1,12 +1,17 @@
 const router = require("express").Router();
 const lark = require('@larksuiteoapi/node-sdk');
+const axios = require('axios');
 
+const url = 'https://open.larksuite.com/open-apis/authen/v1/index?redirect_uri=https://open.larksuite.com/&app_id=cli_a45b055171f8d02f&state=1';
 
 const client = new lark.Client({
-    appId: 'app id',
-    appSecret: 'app secret',
+    appId: 'cli_slkdjalasdkjasd',
+    appSecret: 'dskLLdkasdjlasdKK',
 });
-
+const data = {
+    appId: 'cli_slkdjalasdkjasd',
+    appSecret: 'dskLLdkasdjlasdKK',
+  };
 router.get('/listTableRecords', async (req, res) => {
     try {
         const response = await client.bitable.appTableRecord.list({
@@ -24,5 +29,34 @@ router.get('/listTableRecords', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+// client.authen.accessToken.create({   // obtain user token
+// 		data: {
+// 			grant_type: 'authorization_code',
+// 			code: 'xMSldislSkdK',
+// 		},
+// 	},
+// 	lark.withTenantToken("")
+// ).then(res => {
+// 	console.log(res);
+// });
+
+router.post('/auth', async (req, res) => {
+    try {
+        axios.post(url)
+            .then(response => {
+                res.send('Nội dung của trang web: ' + response.data);
+            })
+            .catch(error => {
+                res.send('Lỗi: ' + error);
+            });
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+
+
+
+
 
 module.exports = router;
