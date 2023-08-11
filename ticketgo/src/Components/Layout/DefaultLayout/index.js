@@ -7,37 +7,29 @@ import axios from "axios";
 import {
     getAppToken
 } from '../../../redux/apiRequest';
-export function LayoutD({children}){
+export function LayoutD({ children }) {
     const dispatch = useDispatch();
-    useEffect(() => {
-        const app = {
-            appId: 'cli_slkdjalasdkjasd',
-            appSecret: 'dskLLdkasdjlasdKK',
-        }
-        getAppToken(app, dispatch);
-    }, [])
-    useEffect(() => {
+    // useEffect(() => {
+    //     const app = {
+    //         appId: 'cli_slkdjalasdkjasd',
+    //         appSecret: 'dskLLdkasdjlasdKK',
+    //     }
+    //     getAppToken(app, dispatch);
+    // }, [])
+    useEffect(async () => {
         const app = {
             appId: 'cli_slkdjalasdkjasd',
             appSecret: 'dskLLdkasdjlasdKK',
         };
-
-        async function fetchAccessToken() {
-            try {
-                const response = await axios.post('https://open.larksuite.com/open-apis/auth/v3/app_access_token/internal', app);
-                console.log(response.data);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        }
-        fetchAccessToken();
+        const response = await axios.post('https://open.larksuite.com/open-apis/auth/v3/app_access_token/internal', app);
+        console.log(response);
     }, []);
-    return(
+    return (
         <div>
-            <Nav/>
-            <NavHeader/>
+            <Nav />
+            <NavHeader />
             {children}
-            <Footer/>
+            <Footer />
         </div>
     )
 }
