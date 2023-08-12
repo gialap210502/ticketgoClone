@@ -10,9 +10,15 @@ import {
 export function LayoutD({ children }) {
     const dispatch = useDispatch();
     useEffect(async () => {
-        getCodeAuth();
-        getList(dispatch);
-    },[]);
+        // getCodeAuth(dispatch);
+        // getList(dispatch);
+        try {
+            const res = await axios.post('/auth');
+        } catch (error) {
+            console.log(error);
+        }
+
+    }, []);
     return (
         <div>
             <Nav />
