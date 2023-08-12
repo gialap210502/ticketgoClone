@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const lark = require('@larksuiteoapi/node-sdk');
 const axios = require('axios');
+const dotenv = require('dotenv');
 dotenv.config();
 
 const url = 'https://open.larksuite.com/open-apis/authen/v1/index?redirect_uri=https://open.larksuite.com/&app_id=cli_a45b055171f8d02f&state=1';
