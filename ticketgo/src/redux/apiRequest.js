@@ -6,7 +6,7 @@ import {
 export const getCodeAuth = () => async (dispatch) => {
     dispatch(loginStart());
     try {
-        const res = await axios.get('/auth');
+        const res = await axios.get('http://localhost:5500/auth');
         console.log('success');
     } catch (error) {
         dispatch(loginFailed());
@@ -15,7 +15,7 @@ export const getCodeAuth = () => async (dispatch) => {
 export const getList = () => async (dispatch) => {
     dispatch(loginStart());
     try {
-        const res = await axios.get('/listTableRecords');
+        const res = await axios.get('http://localhost:5500/listTableRecords');
         dispatch(loginSuccess(res.data));
         //navigate("/home");
     } catch (error) {

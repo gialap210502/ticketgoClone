@@ -11,11 +11,13 @@ export function LayoutD({ children }) {
     const dispatch = useDispatch();
 
     const fetchData = async () => {
-        // getCodeAuth(dispatch);
-        // getList(dispatch);
         try {
             const res = await axios.get('http://localhost:5500/auth');
             console.log(res);
+            const res1 = await axios.get('http://localhost:5500/listTableRecords');
+            console.log(res1);
+            // getCodeAuth(dispatch);
+            // getList(dispatch);
         } catch (error) {
             console.log(error);
         }

@@ -1,7 +1,6 @@
 const router = require("express").Router();
 const lark = require('@larksuiteoapi/node-sdk');
 const axios = require('axios');
-const dotenv = require('dotenv');
 dotenv.config();
 
 const url = 'https://open.larksuite.com/open-apis/authen/v1/index?redirect_uri=https://open.larksuite.com/&app_id=cli_a45b055171f8d02f&state=1';
@@ -20,6 +19,7 @@ var tenant = '';
 
 router.get('/listTableRecords', async (req, res) => {
     (async () => {
+        console.log('helloList');
         for await (const item of await client.bitable.appTableRecord.listWithIterator({
             path: {
                 app_token: 'G0cxbn4u8aGSfospSw6lj0y6gOd',
@@ -32,7 +32,7 @@ router.get('/listTableRecords', async (req, res) => {
         },
             lark.withTenantToken(tenant)
         )) {
-            res.send(item.items);
+            res.send(item);
             console.log(item);
         }
     })();
@@ -45,7 +45,7 @@ router.get('/auth', async (req, res) => {
             .then(response => {
                 res.send(response.data.tenant_access_token);
                 tenant = response.data.tenant_access_token;
-                console.log("hello");
+                console.log('helloAuth');
             })
             .catch(error => {
                 res.send('Lỗi: ' + error);
