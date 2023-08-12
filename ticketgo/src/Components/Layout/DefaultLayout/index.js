@@ -9,16 +9,22 @@ import {
 } from '../../../redux/apiRequest';
 export function LayoutD({ children }) {
     const dispatch = useDispatch();
-    useEffect(async () => {
+
+    const fetchData = async () => {
         // getCodeAuth(dispatch);
         // getList(dispatch);
         try {
-            const res = await axios.post('/auth');
+            const res = await axios.get('http://localhost:5500/auth');
+            console.log(res);
         } catch (error) {
             console.log(error);
         }
+    };
 
+    useEffect(() => {
+        fetchData();
     }, []);
+
     return (
         <div>
             <Nav />
@@ -26,5 +32,6 @@ export function LayoutD({ children }) {
             {children}
             <Footer />
         </div>
-    )
+    );
 }
+

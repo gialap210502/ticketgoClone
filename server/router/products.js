@@ -39,12 +39,13 @@ router.get('/listTableRecords', async (req, res) => {
 });
 
 
-router.post('/auth', async (req, res) => {
+router.get('/auth', async (req, res) => {
     try {
         axios.post(urlAppToken, data)
             .then(response => {
                 res.send(response.data.tenant_access_token);
                 tenant = response.data.tenant_access_token;
+                console.log("hello");
             })
             .catch(error => {
                 res.send('Lỗi: ' + error);

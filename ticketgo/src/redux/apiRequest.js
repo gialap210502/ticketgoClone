@@ -6,7 +6,7 @@ import {
 export const getCodeAuth = () => async (dispatch) => {
     dispatch(loginStart());
     try {
-        const res = await axios.post('/auth');
+        const res = await axios.get('/auth');
         console.log('success');
     } catch (error) {
         dispatch(loginFailed());

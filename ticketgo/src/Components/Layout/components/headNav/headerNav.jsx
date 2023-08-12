@@ -19,7 +19,7 @@ function NavHeader(){
                                     <li><a className='a-nav' href="https://ticketgo.vn/videos">Video</a></li>
                                 </ul>
                                 <ul className="nav navbar-nav navbar-right navbar-form nav__form__location">
-                                    <select id="option_city" className="form-control" onchange="window.document.location.href=this.options[this.selectedIndex].value;">
+                                    <select id="option_city" className="form-control" onChange="window.document.location.href=this.options[this.selectedIndex].value;">
                                         <option value="">Chọn địa điểm</option>
                                         <option value="https://ticketgo.vn/location/ha-noi">Hà Nội</option>
                                         <option value="https://ticketgo.vn/location/ho-chi-minh">Hồ Chí Minh</option>
