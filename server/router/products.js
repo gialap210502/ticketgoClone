@@ -14,29 +14,37 @@ const data = {
     "app_id": process.env.app_id,
     "app_secret": process.env.app_secret
 };
+var tenant = '';
+
+
+
 router.get('/listTableRecords', async (req, res) => {
-    try {
-        const response = await client.bitable.appTableRecord.list({
+    (async () => {
+        for await (const item of await client.bitable.appTableRecord.listWithIterator({
             path: {
                 app_token: 'G0cxbn4u8aGSfospSw6lj0y6gOd',
                 table_id: 'tblXXQBT0cHJCnpq',
             },
             params: {
+                view_id: 'vewgLHHRFG',
                 page_size: 20,
             },
-        }, lark.withUserAccessToken("u-fL.96jl4Z7nbDXPnN0YpPUlhjjku15xbog0wlgw020jc"));
-
-        res.json(response);
-    } catch (error) {
-        res.status(500).json({ error: 'An error occurred' });
-    }
+        },
+            lark.withTenantToken(tenant)
+        )) {
+            res.send(item.items);
+            console.log(item);
+        }
+    })();
 });
+
 
 router.post('/auth', async (req, res) => {
     try {
         axios.post(urlAppToken, data)
             .then(response => {
-                res.send(response.data.app_access_token);
+                res.send(response.data.tenant_access_token);
+                tenant = response.data.tenant_access_token;
             })
             .catch(error => {
                 res.send('Lỗi: ' + error);
@@ -46,8 +54,6 @@ router.post('/auth', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
-
-
 
 
 

@@ -3,10 +3,19 @@ import {
     loginStart, loginFailed, loginSuccess
 } from "./authSlice";
 
-export const getAppToken = async (data, dispatch) => {
+export const getCodeAuth = () => async (dispatch) => {
     dispatch(loginStart());
     try {
-        const res = await axios.post('https://open.larksuite.com/open-apis/auth/v3/app_access_token/internal', data);
+        const res = await axios.post('/auth');
+        console.log('success');
+    } catch (error) {
+        dispatch(loginFailed());
+    }
+}
+export const getList = () => async (dispatch) => {
+    dispatch(loginStart());
+    try {
+        const res = await axios.get('/listTableRecords');
         dispatch(loginSuccess(res.data));
         //navigate("/home");
     } catch (error) {
