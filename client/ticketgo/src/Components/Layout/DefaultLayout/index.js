@@ -12,12 +12,10 @@ export function LayoutD({ children }) {
 
     const fetchData = async () => {
         try {
-            const res = await axios.get('http://localhost:5500/auth');
-            console.log(res);
-            const res1 = await axios.get('http://localhost:5500/listTableRecords');
-            console.log(res1);
-            // getCodeAuth(dispatch);
-            // getList(dispatch);
+            const authtoken = await axios.get('http://localhost:5500/auth');
+            console.log(authtoken);
+            const list = await axios.get('http://localhost:5500/listTableRecords');
+            console.log(list.data);
         } catch (error) {
             console.log(error);
         }
