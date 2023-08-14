@@ -9,10 +9,10 @@ function NavHeader(){
                         <nav className="navbar">
                             {/* <div className="col-xs-12"> */}
                                 <ul className="nav navbar-nav">
-                                    <li><a className='a-nav' href="/event/category/am-nhac">Vé ca nhạc</a></li>
-                                    <li><a className='a-nav' href="/event/category/am-nhac">Văn hóa nghệ thuật</a></li>
-                                    <li><a className='a-nav' href="/event/category/am-nhac">Tour</a></li>
-                                    <li><a className='a-nav' href="/event/category/am-nhac" target="_blank">Thể thao</a></li>
+                                    <li><a className='a-nav' href="/event/category/Music">Vé ca nhạc</a></li>
+                                    <li><a className='a-nav' href="/event/category/Art">Văn hóa nghệ thuật</a></li>
+                                    <li><a className='a-nav' href="/event/category/Tour">Tour</a></li>
+                                    <li><a className='a-nav' href="/event/category/Sport" target="_blank">Thể thao</a></li>
                                     {/* <li><a className='a-nav' href="https://ticketgo.vn/ve-may-bay/gtd	">Vé máy bay / Khách sạn</a></li>
                                     <li><a className='a-nav' href="https://ticketgo.vn/event/category/movies">Vé xem phim</a></li>
                                     <li><a className='a-nav' href="https://ticketgo.vn/blog">Tin tức</a></li>

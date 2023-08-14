@@ -20,8 +20,8 @@ import i19 from '../../../assets/mediaImg/i19.jpg';
 import i20 from '../../../assets/mediaImg/i20.jpg';
 import slide3 from '../../../assets/imgSlide/slide3.jpg';
 import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
+import { useSelector, useDispatch } from 'react-redux';
 
 const EventDisplay = () => {
 
@@ -41,9 +41,6 @@ const EventDisplay = () => {
     useEffect(() => {
         fetchData();
     }, []);
-
-    let rowTop = 0;
-    let rowBot = 0;
 
     return (
         <div className="container" style={{ paddingBottom: '15px' }}>
@@ -115,102 +112,114 @@ const EventDisplay = () => {
             <div className="row" style={{ paddingTop: '10px', paddingBottom: '20px' }}>
                 <div className="row" style={{ height: '200px' }}>
                     <div className="col-3" style={{ position: 'relative' }}>
-                        <img className="rounded bigImg" style={{ height: '180px' }} src={i11} />
-                        <div className="text-overlay" style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            color: 'white',
-                            fontSize: '24px',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            fontSize: '20px'
-                        }}>
-                            Hội Chợ
-                        </div>
+                        <a href="/event/category/Music">
+                            <img className="rounded bigImg" style={{ height: '180px' }} src={i11} />
+                            <div className="text-overlay" style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                color: 'white',
+                                fontSize: '24px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                                fontSize: '20px'
+                            }}>
+                                Hội Chợ
+                            </div>
+                        </a>
                     </div>
                     <div className="col-6" style={{ position: 'relative' }} >
-                        <img className="rounded bigImg" style={{ height: '180px' }} src={i12} />
-                        <div className="text-overlay" style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            color: 'white',
-                            fontSize: '24px',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            fontSize: '20px'
-                        }}>
-                            Âm nhạc
-                        </div>
+                        <a href="/event/category/Music">
+                            <img className="rounded bigImg" style={{ height: '180px' }} src={i12} />
+                            <div className="text-overlay" style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                color: 'white',
+                                fontSize: '24px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                                fontSize: '20px'
+                            }}>
+                                Âm nhạc
+                            </div>
+                        </a>
                     </div>
                     <div className="col-3" style={{ position: 'relative' }} >
-                        <img className="rounded bigImg" style={{ height: '180px' }} src={i13} />
-                        <div className="text-overlay" style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            color: 'white',
-                            fontSize: '24px',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            fontSize: '20px'
-                        }}>
-                            game show
-                        </div>
+                        <a href="/event/category/Tour">
+                            <img className="rounded bigImg" style={{ height: '180px' }} src={i13} />
+                            <div className="text-overlay" style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                color: 'white',
+                                fontSize: '24px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                                fontSize: '20px'
+                            }}>
+                                game show
+                            </div>
+                        </a>
                     </div>
                 </div>
                 <div className="row" style={{ height: '150px' }}>
                     <div className="col-3" style={{ position: 'relative' }} >
-                        <img className="rounded bigImg" style={{ height: '180px' }} src={i14} />
-                        <div className="text-overlay" style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            color: 'white',
-                            fontSize: '24px',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            fontSize: '20px'
-                        }}>
-                            văn hóa nghệ thuật
-                        </div>
+                        <a href="/event/category/Art">
+                            <img className="rounded bigImg" style={{ height: '180px' }} src={i14} />
+                            <div className="text-overlay" style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                color: 'white',
+                                fontSize: '24px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                                fontSize: '20px'
+                            }}>
+                                văn hóa nghệ thuật
+                            </div>
+                        </a>
                     </div>
                     <div className="col-3" style={{ position: 'relative' }} >
-                        <img className="rounded bigImg" style={{ height: '180px' }} src={i15} />
-                        <div className="text-overlay" style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            color: 'white',
-                            fontSize: '24px',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            fontSize: '20px'
-                        }}>
-                            giáo dục
-                        </div>
+                        <a href="/event/category/Tour">
+                            <img className="rounded bigImg" style={{ height: '180px' }} src={i15} />
+                            <div className="text-overlay" style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                color: 'white',
+                                fontSize: '24px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                                fontSize: '20px'
+                            }}>
+                                giáo dục
+                            </div>
+                        </a>
                     </div>
                     <div className="col-6" style={{ position: 'relative' }} >
-                        <img className="rounded bigImg" style={{ height: '180px' }} src={i16} />
-                        <div className="text-overlay" style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            color: 'white',
-                            fontSize: '24px',
-                            fontWeight: 'bold',
-                            textTransform: 'uppercase',
-                            fontSize: '20px'
-                        }}>
-                            thể thao
-                        </div>
+                        <a href="/event/category/Sport">
+                            <img className="rounded bigImg" style={{ height: '180px' }} src={i16} />
+                            <div className="text-overlay" style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                color: 'white',
+                                fontSize: '24px',
+                                fontWeight: 'bold',
+                                textTransform: 'uppercase',
+                                fontSize: '20px'
+                            }}>
+                                thể thao
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
