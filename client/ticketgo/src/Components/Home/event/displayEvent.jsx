@@ -24,7 +24,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from "axios";
 
 const EventDisplay = () => {
-    
+
     const [listItems, setListItems] = useState([]);
     const fetchData = async () => {
         try {
@@ -42,31 +42,34 @@ const EventDisplay = () => {
         fetchData();
     }, []);
 
+    let rowTop = 0;
+    let rowBot = 0;
 
     return (
         <div className="container" style={{ paddingBottom: '15px' }}>
             <div className="row">
-                <div className="col-6">
-                    <img className="rounded bigImg" src={i1} />
-                </div>
-                <div className="col-6">
-                    <img className="rounded bigImg" src={i2} />
-                </div>
+                {listItems?.map((item, index) => {
+                    if (index < 2) {
+                        return (
+                            <div className="col-6" key={item.id}>
+                                <img className="rounded bigImg" src={item.fields.Image} alt={`Image ${index}`} />
+                            </div>
+                        );
+                    }
+                    return null;
+                })}
             </div>
             <div className="row" style={{ height: '150px', paddingTop: '10px' }}>
-                <div className="col-sm-3">
-                    <img className="rounded" style={{ height: '150px' }} src={i3} />
-                </div>
-                <div className="col-sm-3">
-                    <img className="rounded" style={{ height: '150px' }} src={i4} />
-                </div>
-
-                <div className="col-sm-3">
-                    <img className="rounded" style={{ height: '150px' }} src={i5} />
-                </div>
-                <div className="col-sm-3">
-                    <img className="rounded" style={{ height: '150px' }} src={i6} />
-                </div>
+                {listItems?.map((item, index) => {
+                    if (index >= 2 && index < 6) {
+                        return (
+                            <div className="col-sm-3" key={item.id}>
+                                <img className="rounded" style={{ height: '150px' }} src={item.fields.Image} alt={`Image ${index}`} />
+                            </div>
+                        );
+                    }
+                    return null;
+                })}
             </div>
             <div className="row" style={{ paddingTop: '35px' }}>
                 <h2>SỰ KIỆN SẮP DIỄN RA</h2>
@@ -88,7 +91,7 @@ const EventDisplay = () => {
                                     </div>
                                     <div className="col-6" style={{ float: 'right' }}>
                                         | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> {item.fields.Type && Array.isArray(item.fields.Type) && item.fields.Type[0].split(': ')[1]}
-                                    </div>  
+                                    </div>
                                 </div>
                             </div>
                             <div>
@@ -101,249 +104,6 @@ const EventDisplay = () => {
                         </div>
                     </div>
                 ))}
-                {/* <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i3} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i7} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i8} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i9} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i17} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i18} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i19} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px', maxWidth: '400px' }} src={slide3} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 col-sm-6 ">
-                    <div className="rounded">
-                        <div>
-                            <a href="#">
-                                <img style={{ height: '200px' }} src={i20} />
-                            </a>
-                            <div className="row">
-                                <div className="col-4">
-                                    <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                </div>
-                                <div className="col-4">
-                                    | <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                </div>
-                                <div className="col-4">
-                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                <a href="#" style={{ color: 'black' }}>
-                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                </a>
-                            </h3>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="text-center" style={{ paddingTop: '35px' }}>
                     <button id="loadMoreEvent" class="btn btn-danger" type="submit" style={{ backgroundColor: '#ff672a' }} >
                         <i class="fa fa-bars"></i> Xem thêm các sự kiện sắp diễn ra	</button>
