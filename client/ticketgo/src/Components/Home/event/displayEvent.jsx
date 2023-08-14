@@ -19,7 +19,30 @@ import i18 from '../../../assets/mediaImg/i18.jpg';
 import i19 from '../../../assets/mediaImg/i19.jpg';
 import i20 from '../../../assets/mediaImg/i20.jpg';
 import slide3 from '../../../assets/imgSlide/slide3.jpg';
-const eventDisplay = () => {
+import { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from "axios";
+
+const EventDisplay = () => {
+    
+    const [listItems, setListItems] = useState([]);
+    const fetchData = async () => {
+        try {
+            const authtoken = await axios.get('http://localhost:5500/auth');
+            console.log(authtoken);
+            const list = await axios.get('http://localhost:5500/listTableRecords');
+            console.log(list.data.items);
+            setListItems(list.data.items);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
     return (
         <div className="container" style={{ paddingBottom: '15px' }}>
             <div className="row">
@@ -49,7 +72,36 @@ const eventDisplay = () => {
                 <h2>SỰ KIỆN SẮP DIỄN RA</h2>
             </div>
             <div className="row" >
-                <div class="col-md-4 col-sm-6 ">
+                {listItems?.map(item => (
+                    <div class="col-md-4 col-sm-6 " key={item.id}>
+                        <div className="rounded">
+                            <div>
+                                <a href="#">
+                                    <img style={{ height: '200px' }} src={item.fields.Image} />
+                                </a>
+                                <div className="row">
+                                    {/* <div className="col-4">
+                                        <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
+                                    </div> */}
+                                    <div className="col-6">
+                                        <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> {item.fields.address && item.fields.address.split(', ').pop()} <span>+</span>
+                                    </div>
+                                    <div className="col-6" style={{ float: 'right' }}>
+                                        | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> {item.fields.Type && Array.isArray(item.fields.Type) && item.fields.Type[0].split(': ')[1]}
+                                    </div>  
+                                </div>
+                            </div>
+                            <div>
+                                <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
+                                    <a href="#" style={{ color: 'black' }}>
+                                        {item.fields["Product Name"]}
+                                    </a>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                ))}
+                {/* <div class="col-md-4 col-sm-6 ">
                     <div className="rounded">
                         <div>
                             <a href="#">
@@ -291,7 +343,7 @@ const eventDisplay = () => {
                             </h3>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className="text-center" style={{ paddingTop: '35px' }}>
                     <button id="loadMoreEvent" class="btn btn-danger" type="submit" style={{ backgroundColor: '#ff672a' }} >
                         <i class="fa fa-bars"></i> Xem thêm các sự kiện sắp diễn ra	</button>
@@ -419,4 +471,4 @@ const eventDisplay = () => {
         </div>
     );
 };
-export default eventDisplay;    
+export default EventDisplay;    

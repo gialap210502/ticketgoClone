@@ -9,21 +9,22 @@ import {
 } from '../../../redux/apiRequest';
 export function LayoutD({ children }) {
     const dispatch = useDispatch();
+    // const [listItems, setListItems] = useState([]);
+    // const fetchData = async () => {
+    //     try {
+    //         const authtoken = await axios.get('http://localhost:5500/auth');
+    //         console.log(authtoken);
+    //         const list = await axios.get('http://localhost:5500/listTableRecords');
+    //         console.log(list.data.items);
+    //         setListItems(list.data.items);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
-    const fetchData = async () => {
-        try {
-            const authtoken = await axios.get('http://localhost:5500/auth');
-            console.log(authtoken);
-            const list = await axios.get('http://localhost:5500/listTableRecords');
-            console.log(list.data);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    useEffect(() => {
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     fetchData();
+    // }, []);
 
     return (
         <div>

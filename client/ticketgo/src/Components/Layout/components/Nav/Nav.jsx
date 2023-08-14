@@ -18,7 +18,7 @@ function Nav() {
                     <div className="row">
                         <div className="col-xs-8 col-sm-6 col-md-3 col-lg-4 auto_width_mb">
                             <div id="logo">
-                                <a href="https://ticketgo.vn">
+                                <a href="/">
                                     <img src="../../../logo3.png" alt="bán vé sự kiện" />
                                 </a>
                             </div>
@@ -26,7 +26,7 @@ function Nav() {
                         <div className="col-xs-8 col-sm-6 col-md-3 col-lg-4 auto_width_mb">
                             <form class="d-flex">
                                 <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Your Email" name="email" />
+                                    <input type="text" class="form-control" placeholder="Search" name="email" />
                                     <button class="input-group-text"><i class="fa-solid fa-magnifying-glass" style={{ color: '#9b9da1' }}></i></button>
                                 </div>
                             </form>
