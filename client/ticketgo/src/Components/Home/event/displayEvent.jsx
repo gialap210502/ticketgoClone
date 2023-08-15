@@ -1,23 +1,37 @@
 import React from 'react';
+import i1 from '../../../assets/mediaImg/i1.jpg';
+import i2 from '../../../assets/mediaImg/i2.jpg';
+import i3 from '../../../assets/mediaImg/i3.jpg';
+import i4 from '../../../assets/mediaImg/i4.jpg';
+import i5 from '../../../assets/mediaImg/i5.jpg';
+import i6 from '../../../assets/mediaImg/i6.jpg';
+import i7 from '../../../assets/mediaImg/i7.jpg';
+import i8 from '../../../assets/mediaImg/i8.jpg';
+import i9 from '../../../assets/mediaImg/i9.jpg';
 import i11 from '../../../assets/mediaImg/i11.png';
 import i12 from '../../../assets/mediaImg/i12.png';
 import i13 from '../../../assets/mediaImg/i13.png';
 import i14 from '../../../assets/mediaImg/i14.png';
 import i15 from '../../../assets/mediaImg/i15.png';
 import i16 from '../../../assets/mediaImg/i16.png';
+import i17 from '../../../assets/mediaImg/i17.jpg';
+import i18 from '../../../assets/mediaImg/i18.jpg';
+import i19 from '../../../assets/mediaImg/i19.jpg';
+import i20 from '../../../assets/mediaImg/i20.jpg';
+import slide3 from '../../../assets/imgSlide/slide3.jpg';
 import { useEffect, useState } from 'react';
 import axios from "axios";
-import { getCodeAuth, getList } from '../../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
+
 const EventDisplay = () => {
-    const dispatch = useDispatch();
+
     const [listItems, setListItems] = useState([]);
     const fetchData = async () => {
         try {
-            // getCodeAuth(dispatch);
-            // getList(dispatch);
             const authtoken = await axios.get('http://localhost:5500/auth');
+            console.log(authtoken);
             const list = await axios.get('http://localhost:5500/listTableRecords');
+            console.log(list.data.items);
             setListItems(list.data.items);
         } catch (error) {
             console.log(error);
@@ -27,7 +41,6 @@ const EventDisplay = () => {
     useEffect(() => {
         fetchData();
     }, []);
-    
 
     return (
         <div className="container" style={{ paddingBottom: '15px' }}>
@@ -36,9 +49,7 @@ const EventDisplay = () => {
                     if (index < 2) {
                         return (
                             <div className="col-6" key={item.id}>
-                                <a href={`/event/${item.id}`}>
-                                    <img className="rounded bigImg" src={item.fields.Image} alt={`Image ${index}`} />
-                                </a>
+                                <img className="rounded bigImg" src={item.fields.Image} alt={`Image ${index}`} />
                             </div>
                         );
                     }
@@ -50,9 +61,7 @@ const EventDisplay = () => {
                     if (index >= 2 && index < 6) {
                         return (
                             <div className="col-sm-3" key={item.id}>
-                                <a href={`/event/${item.id}`}>
-                                    <img className="rounded" style={{ height: '150px' }} src={item.fields.Image} alt={`Image ${index}`} />
-                                </a>
+                                <img className="rounded" style={{ height: '150px' }} src={item.fields.Image} alt={`Image ${index}`} />
                             </div>
                         );
                     }
@@ -67,7 +76,7 @@ const EventDisplay = () => {
                     <div class="col-md-4 col-sm-6 " key={item.id}>
                         <div className="rounded">
                             <div>
-                                <a href={`/event/${item.id}`}>
+                                <a href="#">
                                     <img style={{ height: '200px' }} src={item.fields.Image} />
                                 </a>
                                 <div className="row">
@@ -84,7 +93,7 @@ const EventDisplay = () => {
                             </div>
                             <div>
                                 <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                    <a href={`/event/${item.id}`} style={{ color: 'black' }}>
+                                    <a href="#" style={{ color: 'black' }}>
                                         {item.fields["Product Name"]}
                                     </a>
                                 </h3>
@@ -228,7 +237,7 @@ const EventDisplay = () => {
                     </p>
                 </div>
             </div>
-        </div >
+        </div>
     );
 };
 export default EventDisplay;    

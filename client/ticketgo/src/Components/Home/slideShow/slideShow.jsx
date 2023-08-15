@@ -11,9 +11,9 @@ const SlideShow = () => {
     const fetchData = async () => {
         try {
             const authtoken = await axios.get('http://localhost:5500/auth');
-            
+            console.log(authtoken);
             const list = await axios.get('http://localhost:5500/listTableRecords');
-            
+            console.log(list.data.items);
             setListItems(list.data.items);
         } catch (error) {
             console.log(error);
