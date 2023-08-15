@@ -34,22 +34,24 @@ function Nav() {
                         <div className="col-xs-8 col-sm-6 col-md-4 col-lg-4 header_bar">
                             <ul class="nav">
                                 <li class="nav-item">
-                                    <button class="nav-link" style={{color: '#6c757d'}} onClick={handleShow}> Login</button>
+                                    <Button variant="primary" onClick={handleShow}>
+                                        Login
+                                    </Button>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" style={{color: '#6c757d'}} href="/register"> Register</a>
+                                    <a class="nav-link disabled" href="#"> Register</a>
                                 </li>
                                 <li class="nav-item">
-                                    {/* <Dropdown>
-                                        <Dropdown.Toggle variant="light" >
-                                            
+                                    <Dropdown>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
                                             <Dropdown.Item href="#one">English</Dropdown.Item>
                                             <Dropdown.Item href="#two">Vietnamese</Dropdown.Item>
                                         </Dropdown.Menu>
-                                    </Dropdown> */}
+                                    </Dropdown>
                                 </li>
                             </ul>
                         </div>
