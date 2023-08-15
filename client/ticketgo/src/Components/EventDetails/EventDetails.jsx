@@ -21,6 +21,7 @@ const EventDetails = () => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [listItems, setListItems] = useState([]);
+
     const fetchData = async () => {
         try {
             // getCodeAuth(dispatch);
@@ -40,532 +41,388 @@ const EventDetails = () => {
     const { eventId } = useParams();
     return (
         <div>
-            {listItems?.map((item, index) => {
-                if (item.id && item.id.includes(eventId)) {
-                    return (
-                        <div>
-                            <div class="item">
-                                <img src={item.fields.Image} alt="Vé xe bus 2 tầng tour ngày và ngắm cảnh đêm tại Hà Nội siêu HOT Vietnam Sightseeing" style={{ width: '100%' }} />
-                            </div>
-                            <div style={{ height: '30px' }}></div>
-                            <div className="container shadow p-3 mb-5 bg-white rounded">
-                                <div className="row">
-                                    <div className="col-8">
-                                        <div style={{ fontSize: '24px', fontWeight: '700' }}>
-                                            {item.fields["Product Name"]}
+            <div>
+                {listItems?.map((item, index) => {
+                    if (item.id && item.id.includes(eventId)) {
+                        return (
+                            <div>
+                                <div class="item">
+                                    <img src={item.fields.Image} alt="Vé xe bus 2 tầng tour ngày và ngắm cảnh đêm tại Hà Nội siêu HOT Vietnam Sightseeing" style={{ width: '100%' }} />
+                                </div>
+                                <div style={{ height: '30px' }}></div>
+                                <div className="container shadow p-3 mb-5 bg-white rounded">
+                                    <div className="row">
+                                        <div className="col-8">
+                                            <div style={{ fontSize: '24px', fontWeight: '700' }}>
+                                                {item.fields["Product Name"]}
+                                            </div>
+                                            <div class="event_info">
+                                                <p>
+                                                    <i class="fa fa-clock-o" style={{ color: '#ff672a', marginRight: '5px' }}></i>
+                                                    <span style={{ fontSize: '20px' }}>
+                                                        {item.fields.Date.split(' ')[1]}
+                                                    </span>
+                                                </p>
+                                                <p>
+                                                    <i class="fa fa-calendar" style={{ color: '#ff672a', marginRight: '5px' }}></i>
+                                                    <span style={{ fontSize: '20px' }}>
+                                                        {item.fields.Date.split(' ')[0]}
+                                                    </span>
+                                                </p><p>
+                                                    <i class="fa fa-map-marker" style={{ color: '#ff672a', marginRight: '5px' }}></i>
+                                                    <span style={{ fontSize: '20px' }}>
+                                                        {item.fields.address}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="event_info">
+                                                <p style={{ marginTop: '10px', fontSize: '20px' }}>
+                                                    <i class="fa fa-ticket" style={{ color: '#ff672a', marginRight: '5px' }}></i>
+                                                    {item.fields.Describe}
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="event_info">
-                                            <p>
-                                                <i class="fa fa-clock-o" style={{ color: '#ff672a', marginRight: '5px' }}></i>
-                                                <span style={{ fontSize: '20px' }}>
-                                                    {item.fields.Date.split(' ')[1]}
-                                                </span>
-                                            </p>
-                                            <p>
-                                                <i class="fa fa-calendar" style={{ color: '#ff672a', marginRight: '5px' }}></i>
-                                                <span style={{ fontSize: '20px' }}>
-                                                    {item.fields.Date.split(' ')[0]}
-                                                </span>
-                                            </p><p>
-                                                <i class="fa fa-map-marker" style={{ color: '#ff672a', marginRight: '5px' }}></i>
-                                                <span style={{ fontSize: '20px' }}>
-                                                    {item.fields.address}
-                                                </span>
-                                            </p>
-                                        </div>
-                                        <div class="event_info">
-                                            <p style={{ marginTop: '10px', fontSize: '20px' }}>
-                                                <i class="fa fa-ticket" style={{ color: '#ff672a', marginRight: '5px' }}></i>
-                                                {item.fields.Describe}
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div className="col-4">
-                                        <div className="btn btn-primary flex w-100" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '20px', textAlign: 'center' }} onClick={handleShow}>
+                                        <div className="col-4">
+                                            <div className="btn btn-primary flex w-100" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '20px', textAlign: 'center' }} onClick={handleShow}>
 
-                                            MUA NGAY
+                                                MUA NGAY
 
-                                            <i class="fa fa-paper-plane-o" style={{ marginLeft: '5px' }}></i>
+                                                <i class="fa fa-paper-plane-o" style={{ marginLeft: '5px' }}></i>
+                                            </div>
+                                            <div class="socialIcon">
+                                                <a
+                                                    className="fa-brands fa-facebook fa-2x"
+                                                    style={{ color: "#1558cb", width: "50px", height: "50px", marginLeft: "15px" }}
+                                                    href="https://www.facebook.com/ticketgo.vn/"
+                                                ></a>
+                                                <a class="fa fa-pinterest fa-2x"
+                                                    style={{ color: "red", width: "50px", height: "50px", marginLeft: "15px" }}
+                                                    href="https://www.pinterest.com/ticketgovn/"></a>
+                                                <a class="fa fa-twitter fa-2x"
+                                                    style={{ color: "#1558cb", width: "50px", height: "50px", marginLeft: "15px" }}
+                                                    href="https://twitter.com/TicketGo_vn"></a>
+                                                <a class="fa-brands fa-square-instagram fa-2x"
+                                                    style={{ color: "#4b4c4e", width: "50px", height: "50px", marginLeft: "15px" }}
+                                                    href="https://www.instagram.com/ticketgo.vn/"></a>
+                                                <a class="fa-brands fa-linkedin fa-2x"
+                                                    style={{ color: "#1558cb", width: "50px", height: "50px", marginLeft: "15px" }}
+                                                    href="https://www.pnkedin.com/in/news-ticketgo-72b814161/"></a>
+                                                <a class="fa fa-youtube fa-2x"
+                                                    style={{ color: "red", width: "50px", height: "50px", marginLeft: "15px" }}
+                                                    href="https://www.youtube.com/channel/UCtm90qWLPvNaDbYcsbkEO4A"></a>
+                                            </div>
+                                            <div id="contact_support" style={{ textAlign: 'center' }}>
+                                                <p>Liên hệ bộ phận chăm sóc khách hàng</p>
+                                                <p>Email: ticketgo.vn@gmail.com</p>
+                                                <p>vui lòng gọi: <a style={{ color: '#ff672a' }} href="tel:0899980818"><b>08.999.80.818</b></a> - <a style={{ color: '#ff672a' }} href="tel:02437880099"><b>0243.788.00.99</b></a></p>
+                                            </div>
                                         </div>
-                                        <div class="socialIcon">
-                                            <a
-                                                className="fa-brands fa-facebook fa-2x"
-                                                style={{ color: "#1558cb", width: "50px", height: "50px", marginLeft: "15px" }}
-                                                href="https://www.facebook.com/ticketgo.vn/"
-                                            ></a>
-                                            <a class="fa fa-pinterest fa-2x"
-                                                style={{ color: "red", width: "50px", height: "50px", marginLeft: "15px" }}
-                                                href="https://www.pinterest.com/ticketgovn/"></a>
-                                            <a class="fa fa-twitter fa-2x"
-                                                style={{ color: "#1558cb", width: "50px", height: "50px", marginLeft: "15px" }}
-                                                href="https://twitter.com/TicketGo_vn"></a>
-                                            <a class="fa-brands fa-square-instagram fa-2x"
-                                                style={{ color: "#4b4c4e", width: "50px", height: "50px", marginLeft: "15px" }}
-                                                href="https://www.instagram.com/ticketgo.vn/"></a>
-                                            <a class="fa-brands fa-linkedin fa-2x"
-                                                style={{ color: "#1558cb", width: "50px", height: "50px", marginLeft: "15px" }}
-                                                href="https://www.pnkedin.com/in/news-ticketgo-72b814161/"></a>
-                                            <a class="fa fa-youtube fa-2x"
-                                                style={{ color: "red", width: "50px", height: "50px", marginLeft: "15px" }}
-                                                href="https://www.youtube.com/channel/UCtm90qWLPvNaDbYcsbkEO4A"></a>
+                                    </div>
+                                </div>
+                                <div className="container shadow p-3 mb-5 bg-white rounded">
+                                    <div style={{ textAlign: 'center' }}>
+                                        <h2 style={{ color: '#ff672a', border: 'none' }}>GIỚI THIỆU VỀ SỰ KIỆN</h2>
+                                    </div>
+                                    <div style={{ textAlign: 'center' }}>
+                                        <p>
+                                            <span style={{ fontFamily: 'verdana, geneva, sans-serif', fontSize: '12pt' }}>
+                                                <strong>
+                                                    <img style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: "80%" }} src={item.fields.Image} />
+                                                </strong>
+                                            </span>
+                                        </p>
+                                        <p style={{ textAlign: 'justify' }}>
+                                            <span style={{ fontFamily: 'verdana, geneva, sans-serif', fontSize: '12pt' }}><strong>◾&nbsp;</strong>
+                                                {item.fields.Intro}
+                                            </span></p>
+                                    </div>
+                                </div>
+                                <div className="container shadow p-3 mb-5 bg-white rounded">
+                                    <div style={{ textAlign: 'center' }}>
+                                        <h2 style={{ color: '#ff672a', border: 'none' }}>THÔNG TIN ĐƠN VỊ TỔ CHỨC</h2>
+                                    </div>
+                                    <div className="row">
+                                        <div className="col-2">
+                                            <img src={item.fields.orgImg} />
                                         </div>
-                                        <div id="contact_support" style={{ textAlign: 'center' }}>
-                                            <p>Liên hệ bộ phận chăm sóc khách hàng</p>
-                                            <p>Email: ticketgo.vn@gmail.com</p>
-                                            <p>vui lòng gọi: <a style={{ color: '#ff672a' }} href="tel:0899980818"><b>08.999.80.818</b></a> - <a style={{ color: '#ff672a' }} href="tel:02437880099"><b>0243.788.00.99</b></a></p>
+                                        <div className="col-10">
+                                            <h4 style={{ fontSize: '18px', fontWeight: '700' }}>{item.fields["ORGANIZATIONAL UNITS"]}</h4>
+                                            <div>
+                                                <p style={{ textAlign: 'justify' }}>
+                                                    <span style={{ fontFamily: 'verdana, geneva, sans-serif', fontSize: '12pt' }}>
+                                                        {item.fields.orgIntro}
+                                                    </span></p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="container shadow p-3 mb-5 bg-white rounded">
-                                <div style={{ textAlign: 'center' }}>
-                                    <h2 style={{ color: '#ff672a', border: 'none' }}>GIỚI THIỆU VỀ SỰ KIỆN</h2>
-                                </div>
-                                <div style={{ textAlign: 'center' }}>
-                                    <p>
-                                        <span style={{ fontFamily: 'verdana, geneva, sans-serif', fontSize: '12pt' }}>
-                                            <strong>
-                                                <img style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', width: "80%" }} src={item.fields.Image} />
-                                            </strong>
-                                        </span>
-                                    </p>
-                                    <p style={{ textAlign: 'justify' }}>
-                                        <span style={{ fontFamily: 'verdana, geneva, sans-serif', fontSize: '12pt' }}><strong>◾&nbsp;</strong>
-                                            {item.fields.Intro}
-                                        </span></p>
-                                </div>
-                            </div>
-                            <div className="container shadow p-3 mb-5 bg-white rounded">
-                                <div style={{ textAlign: 'center' }}>
-                                    <h2 style={{ color: '#ff672a', border: 'none' }}>THÔNG TIN ĐƠN VỊ TỔ CHỨC</h2>
-                                </div>
-                                <div className="row">
-                                    <div className="col-2">
-                                        <img src={item.fields.orgImg}  />
-                                    </div>
-                                    <div className="col-10">
-                                        <h4 style={{ fontSize: '18px', fontWeight: '700' }}>{item.fields["ORGANIZATIONAL UNITS"]}</h4>
-                                        <div>
-                                            <p style={{ textAlign: 'justify' }}>
-                                                <span style={{ fontFamily: 'verdana, geneva, sans-serif', fontSize: '12pt' }}>
-                                                {item.fields.orgIntro}
-                                                </span></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="container shadow p-3 mb-5 bg-white rounded">
-                                <div style={{ textAlign: 'center' }}>
-                                    <h2 style={{ color: '#ff672a', border: 'none' }}> SỰ KIỆN LIÊN QUAN</h2>
-                                </div>
-                                <div className="row">
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                    <div className="col-sm-3">
-                                        <div >
-                                            <a href="#">
-                                                <img style={{ height: '150px' }} src={i3} />
-                                            </a>
-                                            <div className="row">
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> Hà Nội <span>+</span>
-                                                </div>
-                                                <div className="col-5" style={{ color: '#ff672a' }}>
-                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> 540.000
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                                <a href="#" style={{ color: 'black' }}>
-                                                    Học SUP - Chơi SUP tại ngoại thành Hà Nội - 0,5 ngày - Umove Adventure [HN02]
-                                                </a>
-                                            </h3>
-                                        </div>
-                                    </div>
+                        );
+                    }
+                    return null;
+                })}
 
-                                </div>
-                            </div>
-                            <Modal show={show} size='xl' onHide={handleClose}>
-                                <Modal.Body>
-                                    <div className="container">
-                                        <Form>
-                                            <div className='row'>
-                                                <div className='col-md-4' style={{ maxWidth: '70%', marginRight: '0px' }}>
-                                                    <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
-                                                        <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>THÔNG TIN KHÁCH HÀNG</h2>
-                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Họ Tên:</Form.Label>
-                                                            <Form.Control type="email" placeholder="" />
-                                                        </Form.Group>
-                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Điện thoại:</Form.Label>
-                                                            <Form.Control type="email" placeholder="" />
-                                                        </Form.Group>
-                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Email:</Form.Label>
-                                                            <Form.Control type="email" placeholder="" />
-                                                        </Form.Group>
-                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Địa chỉ:</Form.Label>
-                                                            <Form.Control type="email" placeholder="" />
-                                                        </Form.Group>
-                                                        <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                            <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Ngày xem show/sự kiện:</Form.Label>
-                                                            <Form.Control type="email" placeholder="" />
-                                                        </Form.Group>
+                <div className="container shadow p-3 mb-5 bg-white rounded">
+                    <div style={{ textAlign: 'center' }}>
+                        <h2 style={{ color: '#ff672a', border: 'none' }}> SỰ KIỆN LIÊN QUAN</h2>
+                    </div>
+                    <div className="row">
+                        {listItems?.map((item, index) => {
+                            if (index < 8) {
+                                return (
+                                    <div className="col-sm-3">
+                                        <div >
+                                            <a href="#">
+                                                <img style={{ height: '150px' }} src={item.fields.Image} />
+                                            </a>
+                                            <div className="row">
+                                                <div className="col-6" style={{ color: '#ff672a' }}>
+                                                    <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> {item.fields.address && item.fields.address.split(', ').pop()} 
+                                                </div>
+                                                <div className="col-6" style={{ color: '#ff672a' }}>
+                                                    | <span style={{ color: '#ff672a', fontWeight: '700' }}>VNĐ</span> {item.fields.Type && Array.isArray(item.fields.Type) && item.fields.Type[0].split(': ')[1]}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
+                                                <a href="#" style={{ color: 'black' }}>
+                                                {item.fields["Product Name"]}
+                                                </a>
+                                            </h3>
+                                        </div>
+                                    </div>
+                                );
+                            }
+                            return null;
+                        })}
+                    </div>
+                </div>
 
-                                                    </div>
-                                                    <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
-                                                        <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>LỰA CHỌN THANH TOÁN</h2>
-                                                        <div class="card-header">
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input" id="radio" name="optradio" value="option2" onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} />
-                                                                <label class="form-check-label" for="radio" style={{ fontSize: '12px' }}>Thẻ tín dụng mở tại Việt Nam</label>
-                                                            </div>
+                <Modal show={show} size='xl' onHide={handleClose}>
+                    <Modal.Body>
+                        <div className="container">
+                            <Form>
+                                <div className='row'>
+                                    <div className='col-md-4' style={{ maxWidth: '70%', marginRight: '0px' }}>
+                                        <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
+                                            <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>THÔNG TIN KHÁCH HÀNG</h2>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Họ Tên:</Form.Label>
+                                                <Form.Control type="email" placeholder="" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Điện thoại:</Form.Label>
+                                                <Form.Control type="email" placeholder="" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Email:</Form.Label>
+                                                <Form.Control type="email" placeholder="" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Địa chỉ:</Form.Label>
+                                                <Form.Control type="email" placeholder="" />
+                                            </Form.Group>
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                                <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Ngày xem show/sự kiện:</Form.Label>
+                                                <Form.Control type="email" placeholder="" />
+                                            </Form.Group>
+
+                                        </div>
+                                        <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
+                                            <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>LỰA CHỌN THANH TOÁN</h2>
+                                            <div class="card-header">
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="radio" name="optradio" value="option2" onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} />
+                                                    <label class="form-check-label" for="radio" style={{ fontSize: '12px' }}>Thẻ tín dụng mở tại Việt Nam</label>
+                                                </div>
+                                            </div>
+                                            <Collapse in={open}>
+                                                <div id="example-collapse-text" style={{ fontSize: '12px' }}>
+                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                                </div>
+                                            </Collapse>
+                                            <div class="card-header">
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2" onClick={() => setOpen2(!open2)} aria-controls="example-collapse-text2" aria-expanded={open2} />
+                                                    <label class="form-check-label" for="radio2" style={{ fontSize: '12px' }}>ATM / Internet Banking </label>
+                                                </div>
+                                            </div>
+                                            <Collapse in={open2}>
+                                                <div id="example-collapse-text2" style={{ fontSize: '12px' }}>
+                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                                </div>
+                                            </Collapse>
+                                            <div class="card-header">
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="radio3" name="optradio" value="option2" onClick={() => setOpen3(!open3)} aria-controls="example-collapse-text3" aria-expanded={open3} />
+                                                    <label class="form-check-label" for="radio3" style={{ fontSize: '12px' }}> Chuyển khoản</label>
+                                                </div>
+                                            </div>
+                                            <Collapse in={open3}>
+                                                <div id="example-collapse-text3" style={{ fontSize: '12px' }}>
+                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công. Sau khi chúng tôi xác nhận giao dịch chuyển khoản thành công.
+                                                    Xem thông tin chuyển khoản tại đây
+                                                </div>
+                                            </Collapse>
+                                            <div class="card-header">
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="radio4" name="optradio" value="option2" onClick={() => setOpen4(!open4)} aria-controls="example-collapse-text4" aria-expanded={open4} />
+                                                    <label class="form-check-label" for="radio4" style={{ fontSize: '12px' }}>Thẻ tín dụng quốc tế </label>
+                                                </div>
+                                            </div>
+                                            <Collapse in={open4}>
+                                                <div id="example-collapse-text4" style={{ fontSize: '12px' }}>
+                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                                </div>
+                                            </Collapse>
+                                            <div class="card-header">
+                                                <div class="form-check">
+                                                    <input type="radio" class="form-check-input" id="radio5" name="optradio" value="option2" onClick={() => setOpen5(!open5)} aria-controls="example-collapse-text5" aria-expanded={open5} />
+                                                    <label class="form-check-label" for="radio5" style={{ fontSize: '12px' }}> Ví điện tử MoMo</label>
+                                                </div>
+                                            </div>
+                                            <Collapse in={open5}>
+                                                <div id="example-collapse-text5" style={{ fontSize: '12px' }}>
+                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
+                                                </div>
+                                            </Collapse>
+                                        </div>
+                                    </div>
+                                    <div className='col-md-8'>
+                                        <div>
+                                            <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>Giỏ hàng của bạn</h2>
+                                            <div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
                                                         </div>
-                                                        <Collapse in={open}>
-                                                            <div id="example-collapse-text" style={{ fontSize: '12px' }}>
-                                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                            </div>
-                                                        </Collapse>
-                                                        <div class="card-header">
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2" onClick={() => setOpen2(!open2)} aria-controls="example-collapse-text2" aria-expanded={open2} />
-                                                                <label class="form-check-label" for="radio2" style={{ fontSize: '12px' }}>ATM / Internet Banking </label>
-                                                            </div>
-                                                        </div>
-                                                        <Collapse in={open2}>
-                                                            <div id="example-collapse-text2" style={{ fontSize: '12px' }}>
-                                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                            </div>
-                                                        </Collapse>
-                                                        <div class="card-header">
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input" id="radio3" name="optradio" value="option2" onClick={() => setOpen3(!open3)} aria-controls="example-collapse-text3" aria-expanded={open3} />
-                                                                <label class="form-check-label" for="radio3" style={{ fontSize: '12px' }}> Chuyển khoản</label>
-                                                            </div>
-                                                        </div>
-                                                        <Collapse in={open3}>
-                                                            <div id="example-collapse-text3" style={{ fontSize: '12px' }}>
-                                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công. Sau khi chúng tôi xác nhận giao dịch chuyển khoản thành công.
-                                                                Xem thông tin chuyển khoản tại đây
-                                                            </div>
-                                                        </Collapse>
-                                                        <div class="card-header">
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input" id="radio4" name="optradio" value="option2" onClick={() => setOpen4(!open4)} aria-controls="example-collapse-text4" aria-expanded={open4} />
-                                                                <label class="form-check-label" for="radio4" style={{ fontSize: '12px' }}>Thẻ tín dụng quốc tế </label>
-                                                            </div>
-                                                        </div>
-                                                        <Collapse in={open4}>
-                                                            <div id="example-collapse-text4" style={{ fontSize: '12px' }}>
-                                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                            </div>
-                                                        </Collapse>
-                                                        <div class="card-header">
-                                                            <div class="form-check">
-                                                                <input type="radio" class="form-check-input" id="radio5" name="optradio" value="option2" onClick={() => setOpen5(!open5)} aria-controls="example-collapse-text5" aria-expanded={open5} />
-                                                                <label class="form-check-label" for="radio5" style={{ fontSize: '12px' }}> Ví điện tử MoMo</label>
-                                                            </div>
-                                                        </div>
-                                                        <Collapse in={open5}>
-                                                            <div id="example-collapse-text5" style={{ fontSize: '12px' }}>
-                                                                Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                            </div>
-                                                        </Collapse>
                                                     </div>
                                                 </div>
-                                                <div className='col-md-8'>
-                                                    <div>
-                                                        <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>Giỏ hàng của bạn</h2>
-                                                        <div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row border-bottom">
-                                                                <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                                <span class="col-3 border-end">150,000 VNĐ</span>
-                                                                <div class="col-3 ">
-                                                                    <div class="input-group mb-3 input-group-sm">
-                                                                        <button type="button" class="btn btn-danger">-</button>
-                                                                        <input type="text" class="form-control" />
-                                                                        <button type="button" class="btn btn-info">+</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
                                                         </div>
-
-                                                        <div className="row" style={{ paddingTop: '20px' }}>
-                                                            <div class="col-4">
-                                                                <label for="email" class="form-label">Mã giảm giá</label>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control" />
-                                                                    <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Kiểm tra</button>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row" style={{ paddingTop: '20px' }}>
-                                                                <div class="col-8 border" >
-                                                                    <div style={{ paddingTop: '7px', }}>
-                                                                        Tổng cộng
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-4 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
-                                                                    <p style={{ float: 'right', paddingTop: '7px' }}>0 VNĐ</p>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row" style={{ paddingTop: '20px' }}>
-                                                                <div class="form-check">
-                                                                    <input type="checkbox" className="form-check-input" id="checkTerm" name="option1" value="something" />
-                                                                    <label className="form-check-label" for="checkTerm">Tôi đồng ý với các Điều khoản & Chính sách của Tickego.vn</label>
-                                                                </div>
-                                                                <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Tiếp tục thanh toán</button>
-                                                            </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row border-bottom">
+                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
+                                                    <span class="col-3 border-end">150,000 VNĐ</span>
+                                                    <div class="col-3 ">
+                                                        <div class="input-group mb-3 input-group-sm">
+                                                            <button type="button" class="btn btn-danger">-</button>
+                                                            <input type="text" class="form-control" />
+                                                            <button type="button" class="btn btn-info">+</button>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </Form>
+
+                                            <div className="row" style={{ paddingTop: '20px' }}>
+                                                <div class="col-4">
+                                                    <label for="email" class="form-label">Mã giảm giá</label>
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control" />
+                                                        <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Kiểm tra</button>
+                                                    </div>
+                                                </div>
+                                                <div className="row" style={{ paddingTop: '20px' }}>
+                                                    <div class="col-8 border" >
+                                                        <div style={{ paddingTop: '7px', }}>
+                                                            Tổng cộng
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-4 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
+                                                        <p style={{ float: 'right', paddingTop: '7px' }}>0 VNĐ</p>
+                                                    </div>
+                                                </div>
+                                                <div className="row" style={{ paddingTop: '20px' }}>
+                                                    <div class="form-check">
+                                                        <input type="checkbox" className="form-check-input" id="checkTerm" name="option1" value="something" />
+                                                        <label className="form-check-label" for="checkTerm">Tôi đồng ý với các Điều khoản & Chính sách của Tickego.vn</label>
+                                                    </div>
+                                                    <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Tiếp tục thanh toán</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <div className="btn btn-primary " style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center' }} onClick={handleClose}>
-                                        Đóng
-                                    </div>
-                                </Modal.Footer>
-                            </Modal>
+                                </div>
+                            </Form>
                         </div>
-                    );
-                }
-                return null;
-            })}
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className="btn btn-primary " style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center' }} onClick={handleClose}>
+                            Đóng
+                        </div>
+                    </Modal.Footer>
+                </Modal>
+            </div>
         </div>
 
 
