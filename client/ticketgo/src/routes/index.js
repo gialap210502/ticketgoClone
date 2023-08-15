@@ -14,7 +14,7 @@ const publicRoutes = [
     {path:'/event/category/Sport', component:EventSport},
     {path:'/event/category/Art', component:EventArt},
     {path:'/event/category/Tour', component:EventTour },
-    {path:'/event/tenEvent', component:EventDetails},
+    {path:'/event/:eventId', component:EventDetails},
     {path:'/Order', component:Order},
     {path:'/HistoryOrder', component:HistoryOrder}
 ];

@@ -76,7 +76,7 @@ const EventDisplay = () => {
                     <div class="col-md-4 col-sm-6 " key={item.id}>
                         <div className="rounded">
                             <div>
-                                <a href="#">
+                                <a href={`/event/${item.id}`}>
                                     <img style={{ height: '200px' }} src={item.fields.Image} />
                                 </a>
                                 <div className="row">
@@ -93,7 +93,7 @@ const EventDisplay = () => {
                             </div>
                             <div>
                                 <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                    <a href="#" style={{ color: 'black' }}>
+                                    <a href={`/event/${item.id}`} style={{ color: 'black' }}>
                                         {item.fields["Product Name"]}
                                     </a>
                                 </h3>

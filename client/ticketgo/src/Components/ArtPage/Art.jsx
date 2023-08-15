@@ -43,7 +43,7 @@ const EventArtDisplay = () => {
                                 </div>
                                 <div className='col-6'>
                                     <div className="sub_event_cate">
-                                        <h3><a href="#">{item.fields["Product Name"]}</a></h3>
+                                        <h3><a href={`/event/${item.id}`}>{item.fields["Product Name"]}</a></h3>
                                         <div className="ticket_hot_cate">
                                             <div className="row">
                                                 {/* <div className='col-2' style={{ paddingLeft: '15px' }}>
@@ -82,7 +82,7 @@ const EventArtDisplay = () => {
                             <div className="col-sm-3" style={{ width: '400px', paddingRight: '10px' }} key={item.id}>
                                 <div className="rounded">
                                     <div>
-                                        <a href="#">
+                                        <a href={`/event/${item.id}`}>
                                             <img style={{ height: '190px' }} src={item.fields.Image} />
                                         </a>
                                         <div className="row">
@@ -99,7 +99,7 @@ const EventArtDisplay = () => {
                                     </div>
                                     <div>
                                         <h3 style={{ fontSize: '14px', color: 'black', textAlign: 'center' }}>
-                                            <a href="#" style={{ color: 'black' }}>
+                                            <a href={`/event/${item.id}`} style={{ color: 'black' }}>
                                                 {item.fields["Product Name"]}
                                             </a>
                                         </h3>
