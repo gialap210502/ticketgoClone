@@ -49,7 +49,10 @@ const EventDisplay = () => {
                     if (index < 2) {
                         return (
                             <div className="col-6" key={item.id}>
-                                <img className="rounded bigImg" src={item.fields.Image} alt={`Image ${index}`} />
+                                <a href={`/event/${item.id}`}>
+                                    <img className="rounded bigImg" src={item.fields.Image} alt={`Image ${index}`} />
+                                </a>
+
                             </div>
                         );
                     }
@@ -61,7 +64,9 @@ const EventDisplay = () => {
                     if (index >= 2 && index < 6) {
                         return (
                             <div className="col-sm-3" key={item.id}>
-                                <img className="rounded" style={{ height: '150px' }} src={item.fields.Image} alt={`Image ${index}`} />
+                                <a href={`/event/${item.id}`}>
+                                    <img className="rounded" style={{ height: '150px' }} src={item.fields.Image} alt={`Image ${index}`} />
+                                </a>
                             </div>
                         );
                     }
