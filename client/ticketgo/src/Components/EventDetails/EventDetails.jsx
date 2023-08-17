@@ -1,27 +1,34 @@
 import React from 'react';
-import i3 from '../../assets/mediaImg/i3.jpg';
-import i21 from '../../assets/mediaImg/i21.jpg';
-import i22 from '../../assets/mediaImg/i22.jpg';
-import i25 from '../../assets/mediaImg/i25.jpg';
+import PaymentForm from "../../PaymentForm";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Collapse from 'react-bootstrap/Collapse';
 import { useEffect, useState } from 'react';
 import axios from "axios";
+import moment from 'moment';
 import { useParams } from 'react-router-dom';
 //import { getCodeAuth, getList } from '../../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
 const EventDetails = () => {
     const [show, setShow] = useState(false);
+    const [showPay, setShowPay] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const handleClosePay = () => setShowPay(false);
+    const handleShowPay = () => setShowPay(true);
+
     const [open, setOpen] = useState(false);
     const [open2, setOpen2] = useState(false);
     const [open3, setOpen3] = useState(false);
     const [open4, setOpen4] = useState(false);
     const [open5, setOpen5] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [listItems, setListItems] = useState([]);
 
+    const [timeStamp, setTimeStamp] = useState('');
+
+    const [listItems, setListItems] = useState([]);
+    const domain = 'https://sandbox.megapay.vn';
     const fetchData = async () => {
         try {
             // getCodeAuth(dispatch);
@@ -29,16 +36,49 @@ const EventDetails = () => {
             const authtoken = await axios.get('http://localhost:5500/auth');
             const list = await axios.get('http://localhost:5500/listTableRecords');
             setListItems(list.data.items);
-            console.log(list.data.items);
+
+            //window.openPayment(1, domain);
         } catch (error) {
             console.log(error);
         }
     };
 
+    const handlePaymentClick = () => {
+        // Gọi hàm khi người dùng chọn thanh toán
+        const iframe = document.createElement('iframe');
+        iframe.src = domain + '/pg_was/js/payment/layer/paymentClient.js';
+        document.body.appendChild(iframe);
+
+        // Gọi hàm openPayment sau khi tệp script được tải
+        iframe.onload = () => {
+            window.openPayment(1, domain);
+        };
+    };
     useEffect(() => {
         fetchData();
+        const formatTimeStamp = moment().format('YYYYMMDDHHmmss');
+        setTimeStamp(formatTimeStamp);
+        console.log("hello" + timeStamp);
     }, []);
     const { eventId } = useParams();
+
+    //const merId = 'EPAY000001';
+    // const current_time = datetime.datetime.now();
+    // const formatted_time = current_time.strftime('%Y%m%d%H%M%S');
+
+
+    const merTrxId = 'qwfeqw'
+    const merId = 'EPAY000001'
+    const amount = '200000'
+    const encodeKey = "rf8whwaejNhJiQG2bsFubSzccfRc/iRYyGUn6SPmT6y/L7A2XABbu9y4GvCoSTOTpvJykFi6b1G0crU8et2O0Q=="
+    const input_string = timeStamp + merTrxId + merId + amount + encodeKey
+
+    const sha256 = require('js-sha256');
+    //const input_string = "20230817153020qwfeqwEPAY000001200000rf8whwaejNhJiQG2bsFubSzccfRc/iRYyGUn6SPmT6y/L7A2XABbu9y4GvC";
+    const merchantToken = sha256(input_string);
+
+    console.log(merchantToken)
+
     return (
         <div>
             <div>
@@ -199,10 +239,28 @@ const EventDetails = () => {
                     </div>
                 </div>
 
-                <Modal show={show} size='xl' onHide={handleClose}>
+                <Modal show={show} size='xl' >
                     <Modal.Body>
                         <div className="container">
-                            <Form>
+                            <Form id="megapayForm" name="megapayForm" method="POST">
+                                <input type="hidden" name="merId" value={merId} />
+                                <input type="hidden" name="currency" value="VND" />
+                                <input type="hidden" name="amount" value={amount} />
+                                <input type="hidden" name="invoiceNo" value="test200000" />
+                                <input type="hidden" name="goodsNm" value="Test Payment" />
+                                <input type="hidden" name="payType" value="DC" />
+                                <input type="hidden" name="callBackUrl" value="http://localhost:3000/callback" />
+                                <input type="hidden" name="notiUrl" value="http://localhost:3000/callback" />
+                                <input type="hidden" name="reqDomain" value="http://localhost:3000" />
+                                <input type="hidden" name="fee" value="0" />
+                                <input type="hidden" name="description" value="testsystem" />
+                                <input type="hidden" name="userLanguage" value="VN" />
+                                <input type="hidden" name="timeStamp" value={timeStamp} />
+                                <input type="hidden" name="merTrxId" value={merTrxId} />
+                                <input type="hidden" name="windowColor" value="#ef5459" />
+                                <input type="hidden" name="windowType" value="0" />
+                                <input type="hidden" name="merchantToken" value={merchantToken} />
+
                                 <div className='row'>
                                     <div className='col-md-4' style={{ maxWidth: '70%', marginRight: '0px' }}>
                                         <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
@@ -304,85 +362,7 @@ const EventDetails = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                             </div>
-
                                             <div className="row" style={{ paddingTop: '20px' }}>
                                                 <div class="col-4">
                                                     <label for="email" class="form-label">Mã giảm giá</label>
@@ -399,7 +379,7 @@ const EventDetails = () => {
                                                     </div>
 
                                                     <div class="col-4 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
-                                                        <p style={{ float: 'right', paddingTop: '7px' }}>0 VNĐ</p>
+                                                        <p style={{ float: 'right', paddingTop: '7px' }}> VNĐ</p>
                                                     </div>
                                                 </div>
                                                 <div className="row" style={{ paddingTop: '20px' }}>
@@ -407,7 +387,9 @@ const EventDetails = () => {
                                                         <input type="checkbox" className="form-check-input" id="checkTerm" name="option1" value="something" />
                                                         <label className="form-check-label" for="checkTerm">Tôi đồng ý với các Điều khoản & Chính sách của Tickego.vn</label>
                                                     </div>
-                                                    <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Tiếp tục thanh toán</button>
+                                                    <div onClick={handlePaymentClick} class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>
+                                                        Tiếp tục thanh toán
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -422,10 +404,119 @@ const EventDetails = () => {
                         </div>
                     </Modal.Footer>
                 </Modal>
+                {/* <Modal show={showPay} size='xl' >
+                    <Modal.Body>
+                        <div className="container">
+                            <div class="epay-form">
+                                <Form id="megapayForm" name="megapayForm" method="POST" action="#" target="paymentF">
+                                    <input type="hidden" name="windowColor" value="#A50034" />
+                                    <input type="hidden" name="windowType" value="0" />
+                                    <input type="hidden" name="merId" value="LGVN000001" />
+                                    <input type="hidden" name="currency" value="VND" />
+                                    <input type="hidden" name="amount" value="56990000" />
+                                    <input type="hidden" name="invoiceNo" value="LG_73000192700" />
+                                    <input type="hidden" name="goodsNm" value="VN.GR-X257MC.AMCPEVN" />
+                                    <input type="hidden" name="buyerFirstNm" value="Gialap" />
+                                    <input type="hidden" name="buyerLastNm" value="Duong" />
+                                    <input type="hidden" name="buyerPhone" value="0919636851" />
+                                    <input type="hidden" name="buyerCountry" value="VN" />
+                                    <input type="hidden" name="callBackUrl" value="https://www.lg.com/vn/shop/epay/response/index/" />
+                                    <input type="hidden" name="notiUrl" value="https://www.lg.com/vn/shop/rest/V1/payment/epay/callback/" />
+                                    <input type="hidden" name="reqDomain" value="https://www.lg.com/vn/shop/" />
+                                    <input type="hidden" name="fee" value="0" />
+                                    <input type="hidden" name="description" value="LG Electronics Vietnam" />
+                                    <input type="hidden" name="merchantToken" value="ba114ab92294b2c75b5e14aec5c2e9b6592dd8fb9b4af96e5e6d4a6f6b07097f" />
+                                    <input type="hidden" name="userLanguage" value="VN" />
+                                    <input type="hidden" name="timeStamp" value="1692110126" />
+                                    <input type="hidden" name="merTrxId" value="LGVN00000173000192700" />
+                                    <input type="hidden" name="payType" value="DC" />
+                                    <input type="hidden" name="userId" value="null" />
+                                    <input type="hidden" name="ipinfo" value="ip=2001:ee0:2ea:9edd:60d5:64f5:e1a3:6da5&amp;loc=VN" />
+                                    <div>
+                                        <div id="paymentLayer" class="payment_layer" style={{ display: 'block' }}>
+                                            <div class="payment_bg"></div>
+                                            <div id="payment_box" class="payment_pop_layer" style={{ marginTop: '-325px', marginLeft: '-400px' }}>
+                                                <div class="payment_pop_container">
+                                                    <div class="payment_pop_conts">
+                                                        <iframe name="paymentF" id="paymentF" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" style={{ backgroundImage: 'url(../images/progress.gif)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}></iframe>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Form>
+                                 
+                            </div>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <div className="btn btn-primary " style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center' }} onClick={handleClosePay}>
+                            Đóng
+                        </div>
+                    </Modal.Footer>
+                </Modal> */}
+                {/* <form id="megapayForm" name="megapayForm" method="POST" >
+                    <input type="hidden" name="invoiceNo" value="" />
+                    <input type="hidden" name="amount" value="" />
+                    <input type="hidden" name="currency" value="VND" />
+                    <input type="hidden" name="goodsNm" value="" />
+                    <input type="hidden" name="fee" value="" />
+
+
+                    <input type="hidden" name="buyerFirstNm" value="" />
+                    <input type="hidden" name="buyerLastNm" value="" />
+                    <input type="hidden" name="buyerPhone" value="" />
+                    <input type="hidden" name="buyerEmail" value="" />
+                    <input type="hidden" name="buyerAddr" value="hanoi" />
+                    <input type="hidden" name="buyerCity" value="hanoi" />
+                    <input type="hidden" name="buyerState" value="hanoi" />
+                    <input type="hidden" name="buyerPostCd" value="12950" />
+                    <input type="hidden" name="buyerCountry" value="" />
+                    <input type="hidden" name="receiverLastNm" value="" />
+                    <input type="hidden" name="receiverFirstNm" value="" />
+                    <input type="hidden" name="receiverPhone" value="" />
+                    <input type="hidden" name="receiverState" value="" />
+                    <input type="hidden" name="receiverPostCd" value="12950" />
+                    <input type="hidden" name="receiverCountry" value="" />
+
+
+                    <input type="hidden" name="callBackUrl" value="https://demo.megapay.vn/callback/transactionHandle" />
+
+                    <input type="hidden" name="notiUrl" value="https://demo.megapay.vn/ipn/transactionHandle" />
+
+                    <input type="hidden" name="merId" value="" />
+
+                    <input type="hidden" name="reqDomain" value="http://localhost:8080" />
+                    <input type="hidden" name="userId" value="0" />
+                    <input type="hidden" name="userLanguage" value="VN" />
+                    <input type="hidden" name="merchantToken" value="" />
+                    <input type="hidden" name="payToken" value="" />
+                    <input type="hidden" name="timeStamp" value="" />
+                    <input type="hidden" name="merTrxId" />
+                    <input type="hidden" name="windowType" value="" />
+                    <input type="hidden" name="windowColor" value="" />
+                    <input type="hidden" name="userFee" value="" />
+                    <input type="hidden" name="vaCondition" value="03" />
+                    <input type="hidden" name="payType" value="" />
+                    <input type="hidden" name="payOption" value="" />
+                    <input type="hidden" name="vaStartDt" value="20230816120429" />
+                    <input type="hidden" name="vaEndDt" value="20240216235959" />
+                    <input type="hidden" name="bankCode" value="" />
+                    <input type="hidden" name="description" value="" />
+                </form> */}
+                <form id="paymentForm">
+                    <input type="hidden" name="productName" id="productName" value="Samsung Galaxy" />
+                    <input type="hidden" name="productAmount" id="productAmount" value="2000000" />
+                    <input type="hidden" name="paymentFee" id="paymentFee" value="0" />
+                    <input type="hidden" name="paymentMethod" id="paymentMethod" value="NO" data-bankcode="" />
+                    <input type="hidden" name="windowColor" id="windowColor" value="" />
+                    <input type="hidden" name="saveCard" id="saveCard" value="PAY_CREATE_TOKEN" />
+                    <input type="hidden" name="tokenId" id="tokenId" value="" />
+                    <input type="hidden" name="merId" id="merId" value="MGPDEMO003" />
+                </form>
+
             </div>
         </div>
-
-
 
     );
 };
