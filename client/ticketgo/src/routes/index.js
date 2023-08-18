@@ -15,6 +15,7 @@ const publicRoutes = [
     {path:'/event/category/Art', component:EventArt},
     {path:'/event/category/Tour', component:EventTour },
     {path:'/event/:eventId', component:EventDetails},
+    
     {path:'/Order', component:Order},
     {path:'/HistoryOrder', component:HistoryOrder}
 ];

@@ -2,7 +2,6 @@ import React from 'react';
 import PaymentForm from "../../PaymentForm";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
-import Collapse from 'react-bootstrap/Collapse';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import moment from 'moment';
@@ -10,23 +9,6 @@ import { useParams } from 'react-router-dom';
 //import { getCodeAuth, getList } from '../../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
 const EventDetails = () => {
-    const [show, setShow] = useState(false);
-    const [showPay, setShowPay] = useState(false);
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    const handleClosePay = () => setShowPay(false);
-    const handleShowPay = () => setShowPay(true);
-
-    const [open, setOpen] = useState(false);
-    const [open2, setOpen2] = useState(false);
-    const [open3, setOpen3] = useState(false);
-    const [open4, setOpen4] = useState(false);
-    const [open5, setOpen5] = useState(false);
-
-    const [timeStamp, setTimeStamp] = useState('');
-
     const [listItems, setListItems] = useState([]);
     const domain = 'https://sandbox.megapay.vn';
     const fetchData = async () => {
@@ -37,12 +19,16 @@ const EventDetails = () => {
             const list = await axios.get('http://localhost:5500/listTableRecords');
             setListItems(list.data.items);
 
-            //window.openPayment(1, domain);
         } catch (error) {
             console.log(error);
         }
     };
-
+    useEffect(() => {
+        fetchData();
+        const formatTimeStamp = moment().format('YYYYMMDDHHmmss');
+        setTimeStamp(formatTimeStamp);
+    }, []);
+    const { eventId } = useParams();
     const handlePaymentClick = () => {
         // Gọi hàm khi người dùng chọn thanh toán
         const iframe = document.createElement('iframe');
@@ -54,30 +40,55 @@ const EventDetails = () => {
             window.openPayment(1, domain);
         };
     };
-    useEffect(() => {
-        fetchData();
-        const formatTimeStamp = moment().format('YYYYMMDDHHmmss');
-        setTimeStamp(formatTimeStamp);
-        console.log("hello" + timeStamp);
-    }, []);
-    const { eventId } = useParams();
-
-    //const merId = 'EPAY000001';
-    // const current_time = datetime.datetime.now();
-    // const formatted_time = current_time.strftime('%Y%m%d%H%M%S');
 
 
-    const merTrxId = 'qwfeqw'
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [timeStamp, setTimeStamp] = useState('');
+    const [amount, setAmount] = useState('');
+    const [ticketQuantities, setTicketQuantities] = useState({});
+    const [buyerFirstNm, setBuyerFirstNm] = useState('');
+
+
+    const [selectedPriceIndex, setSelectedPriceIndex] = useState(null);
+    const handlePriceSelect = (priceIndex) => {
+        setSelectedPriceIndex(priceIndex);
+    };
+
     const merId = 'EPAY000001'
-    const amount = '200000'
     const encodeKey = "rf8whwaejNhJiQG2bsFubSzccfRc/iRYyGUn6SPmT6y/L7A2XABbu9y4GvCoSTOTpvJykFi6b1G0crU8et2O0Q=="
+    
+    const merTrxId = timeStamp+eventId;
     const input_string = timeStamp + merTrxId + merId + amount + encodeKey
 
+    
+
     const sha256 = require('js-sha256');
-    //const input_string = "20230817153020qwfeqwEPAY000001200000rf8whwaejNhJiQG2bsFubSzccfRc/iRYyGUn6SPmT6y/L7A2XABbu9y4GvC";
     const merchantToken = sha256(input_string);
 
-    console.log(merchantToken)
+    const extractPrice = (priceItem) => {
+        // Example: "Hạng A: 500.000"
+        const parts = priceItem.split(':'); // Tách chuỗi thành mảng, sẽ là ["Hạng A", " 500.000"]
+        if (parts.length === 2) {
+            const price = parseFloat(parts[1].trim().replace(/\D/g, '')); // Lấy phần số và xóa dấu phân cách nghìn
+            return price;
+        }
+        return 0; // Trả về 0 nếu không thể trích xuất giá
+    };
+    const handleQuantityChange = (priceItem, quantity) => {
+        const priceValue = extractPrice(priceItem);
+        const newTicketQuantities = { ...ticketQuantities, [priceItem]: quantity };
+        setTicketQuantities(newTicketQuantities);
+
+        const newAmount = Object.values(newTicketQuantities).reduce(
+            (total, qty) => total + qty * priceValue,
+            0
+        );
+        setAmount(newAmount);
+    };
 
     return (
         <div>
@@ -196,12 +207,12 @@ const EventDetails = () => {
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         );
                     }
                     return null;
                 })}
-
                 <div className="container shadow p-3 mb-5 bg-white rounded">
                     <div style={{ textAlign: 'center' }}>
                         <h2 style={{ color: '#ff672a', border: 'none' }}> SỰ KIỆN LIÊN QUAN</h2>
@@ -238,139 +249,93 @@ const EventDetails = () => {
                         })}
                     </div>
                 </div>
-
                 <Modal show={show} size='xl' >
                     <Modal.Body>
                         <div className="container">
                             <Form id="megapayForm" name="megapayForm" method="POST">
-                                <input type="hidden" name="merId" value={merId} />
-                                <input type="hidden" name="currency" value="VND" />
-                                <input type="hidden" name="amount" value={amount} />
-                                <input type="hidden" name="invoiceNo" value="test200000" />
-                                <input type="hidden" name="goodsNm" value="Test Payment" />
-                                <input type="hidden" name="payType" value="DC" />
-                                <input type="hidden" name="callBackUrl" value="http://localhost:3000/callback" />
-                                <input type="hidden" name="notiUrl" value="http://localhost:3000/callback" />
-                                <input type="hidden" name="reqDomain" value="http://localhost:3000" />
-                                <input type="hidden" name="fee" value="0" />
-                                <input type="hidden" name="description" value="testsystem" />
-                                <input type="hidden" name="userLanguage" value="VN" />
-                                <input type="hidden" name="timeStamp" value={timeStamp} />
-                                <input type="hidden" name="merTrxId" value={merTrxId} />
-                                <input type="hidden" name="windowColor" value="#ef5459" />
-                                <input type="hidden" name="windowType" value="0" />
-                                <input type="hidden" name="merchantToken" value={merchantToken} />
-
                                 <div className='row'>
                                     <div className='col-md-4' style={{ maxWidth: '70%', marginRight: '0px' }}>
                                         <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
                                             <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>THÔNG TIN KHÁCH HÀNG</h2>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Họ Tên:</Form.Label>
-                                                <Form.Control type="email" placeholder="" />
+                                                <Form.Control type="text" name="buyerFirstNm" />
                                             </Form.Group>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Điện thoại:</Form.Label>
-                                                <Form.Control type="email" placeholder="" />
+                                                <Form.Control type="text" placeholder="" name="buyerPhone" />
                                             </Form.Group>
-                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Email:</Form.Label>
-                                                <Form.Control type="email" placeholder="" />
-                                            </Form.Group>
+                                                <Form.Control type="text"  name="buyerEmail"/>
+                                            </Form.Group> */}
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Địa chỉ:</Form.Label>
-                                                <Form.Control type="email" placeholder="" />
+                                                <Form.Control type="email"  name="buyerAddr"/>
                                             </Form.Group>
-                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                                <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Ngày xem show/sự kiện:</Form.Label>
-                                                <Form.Control type="email" placeholder="" />
-                                            </Form.Group>
-
-                                        </div>
-                                        <div style={{ maxWidth: '100%', marginLeft: '0px', marginRight: '0px' }}>
-                                            <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>LỰA CHỌN THANH TOÁN</h2>
-                                            <div class="card-header">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="radio" name="optradio" value="option2" onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open} />
-                                                    <label class="form-check-label" for="radio" style={{ fontSize: '12px' }}>Thẻ tín dụng mở tại Việt Nam</label>
-                                                </div>
-                                            </div>
-                                            <Collapse in={open}>
-                                                <div id="example-collapse-text" style={{ fontSize: '12px' }}>
-                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                </div>
-                                            </Collapse>
-                                            <div class="card-header">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="radio2" name="optradio" value="option2" onClick={() => setOpen2(!open2)} aria-controls="example-collapse-text2" aria-expanded={open2} />
-                                                    <label class="form-check-label" for="radio2" style={{ fontSize: '12px' }}>ATM / Internet Banking </label>
-                                                </div>
-                                            </div>
-                                            <Collapse in={open2}>
-                                                <div id="example-collapse-text2" style={{ fontSize: '12px' }}>
-                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                </div>
-                                            </Collapse>
-                                            <div class="card-header">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="radio3" name="optradio" value="option2" onClick={() => setOpen3(!open3)} aria-controls="example-collapse-text3" aria-expanded={open3} />
-                                                    <label class="form-check-label" for="radio3" style={{ fontSize: '12px' }}> Chuyển khoản</label>
-                                                </div>
-                                            </div>
-                                            <Collapse in={open3}>
-                                                <div id="example-collapse-text3" style={{ fontSize: '12px' }}>
-                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công. Sau khi chúng tôi xác nhận giao dịch chuyển khoản thành công.
-                                                    Xem thông tin chuyển khoản tại đây
-                                                </div>
-                                            </Collapse>
-                                            <div class="card-header">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="radio4" name="optradio" value="option2" onClick={() => setOpen4(!open4)} aria-controls="example-collapse-text4" aria-expanded={open4} />
-                                                    <label class="form-check-label" for="radio4" style={{ fontSize: '12px' }}>Thẻ tín dụng quốc tế </label>
-                                                </div>
-                                            </div>
-                                            <Collapse in={open4}>
-                                                <div id="example-collapse-text4" style={{ fontSize: '12px' }}>
-                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                </div>
-                                            </Collapse>
-                                            <div class="card-header">
-                                                <div class="form-check">
-                                                    <input type="radio" class="form-check-input" id="radio5" name="optradio" value="option2" onClick={() => setOpen5(!open5)} aria-controls="example-collapse-text5" aria-expanded={open5} />
-                                                    <label class="form-check-label" for="radio5" style={{ fontSize: '12px' }}> Ví điện tử MoMo</label>
-                                                </div>
-                                            </div>
-                                            <Collapse in={open5}>
-                                                <div id="example-collapse-text5" style={{ fontSize: '12px' }}>
-                                                    Sản phẩm điện tử sẽ được gửi ngay sau khi giao dịch thanh toán thành công.
-                                                </div>
-                                            </Collapse>
                                         </div>
                                     </div>
                                     <div className='col-md-8'>
                                         <div>
                                             <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>Giỏ hàng của bạn</h2>
                                             <div>
-                                                <div class="row border-bottom">
-                                                    <span class="col-6 border-end">Vé 1 vòng - Người lớn</span>
-                                                    <span class="col-3 border-end">150,000 VNĐ</span>
-                                                    <div class="col-3 ">
-                                                        <div class="input-group mb-3 input-group-sm">
-                                                            <button type="button" class="btn btn-danger">-</button>
-                                                            <input type="text" class="form-control" />
-                                                            <button type="button" class="btn btn-info">+</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {listItems?.map((item, index) => {
+                                                    if (item.id && item.id.includes(eventId)) {
+                                                        const invoiceNo = eventId + amount+timeStamp
+                                                        return (
+                                                            <div key={index}>
+                                                                <input type="hidden" name="merId" value={merId} />
+                                                                <input type="hidden" name="currency" value="VND" />
+                                                                <input type="hidden" name="amount" value={amount} />
+                                                                <input type="hidden" name="invoiceNo" value={invoiceNo} />
+                                                                <input type="hidden" name="goodsNm" value={item.fields["Product Name"]} />
+                                                                <input type="hidden" name="payType" value="NO" />
+                                                                <input type="hidden" name="callBackUrl" value="http://localhost:3000/Order" />
+                                                                <input type="hidden" name="notiUrl" value="http://localhost:3000/callback" />
+                                                                <input type="hidden" name="reqDomain" value="http://localhost:3000" />
+                                                                <input type="hidden" name="fee" value="0" />
+                                                                <input type="hidden" name="description" value="testsystem" />
+                                                                <input type="hidden" name="userLanguage" value="VN" />
+                                                                <input type="hidden" name="timeStamp" value={timeStamp} />
+                                                                <input type="hidden" name="merTrxId" value={merTrxId} />
+                                                                <input type="hidden" name="windowColor" value="#ef5459" />
+                                                                <input type="hidden" name="windowType" value="0" />
+                                                                <input type="hidden" name="merchantToken" value={merchantToken} />
+                                                                {item.fields.Price?.map((priceItem, priceIndex) => {
+                                                                    const priceValue = extractPrice(priceItem);
+                                                                    const handleCheckboxChange = (event) => {
+                                                                        if (event.target.checked) {
+                                                                            setAmount(amount + priceValue);
+                                                                        } else {
+                                                                            setAmount(amount - priceValue);
+                                                                        }
+                                                                    };
+                                                                    return (
+                                                                        <div key={priceIndex} className="row border-bottom">
+                                                                            <span className="col-6 border-end">{item.fields["Product Name"]}</span>
+                                                                            <span className="col-3 border-end">{priceItem} VNĐ</span>
+                                                                            <div className="col-3">
+                                                                                <div className="input-group mb-3 input-group-sm">
+                                                                                    <input
+                                                                                        type="checkbox"
+                                                                                        className="form-check-input"
+                                                                                        onChange={handleCheckboxChange}
+                                                                                        required
+                                                                                    />
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    );
+                                                                })}
+                                                            </div>
+                                                        );
+                                                    }
+                                                    return null;
+                                                })}
+
+
                                             </div>
                                             <div className="row" style={{ paddingTop: '20px' }}>
-                                                <div class="col-4">
-                                                    <label for="email" class="form-label">Mã giảm giá</label>
-                                                    <div class="input-group">
-                                                        <input type="text" class="form-control" />
-                                                        <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Kiểm tra</button>
-                                                    </div>
-                                                </div>
                                                 <div className="row" style={{ paddingTop: '20px' }}>
                                                     <div class="col-8 border" >
                                                         <div style={{ paddingTop: '7px', }}>
@@ -379,7 +344,7 @@ const EventDetails = () => {
                                                     </div>
 
                                                     <div class="col-4 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
-                                                        <p style={{ float: 'right', paddingTop: '7px' }}> VNĐ</p>
+                                                        <p style={{ float: 'right', paddingTop: '7px' }}>{amount} VNĐ</p>
                                                     </div>
                                                 </div>
                                                 <div className="row" style={{ paddingTop: '20px' }}>
@@ -403,120 +368,11 @@ const EventDetails = () => {
                             Đóng
                         </div>
                     </Modal.Footer>
-                </Modal>
-                {/* <Modal show={showPay} size='xl' >
-                    <Modal.Body>
-                        <div className="container">
-                            <div class="epay-form">
-                                <Form id="megapayForm" name="megapayForm" method="POST" action="#" target="paymentF">
-                                    <input type="hidden" name="windowColor" value="#A50034" />
-                                    <input type="hidden" name="windowType" value="0" />
-                                    <input type="hidden" name="merId" value="LGVN000001" />
-                                    <input type="hidden" name="currency" value="VND" />
-                                    <input type="hidden" name="amount" value="56990000" />
-                                    <input type="hidden" name="invoiceNo" value="LG_73000192700" />
-                                    <input type="hidden" name="goodsNm" value="VN.GR-X257MC.AMCPEVN" />
-                                    <input type="hidden" name="buyerFirstNm" value="Gialap" />
-                                    <input type="hidden" name="buyerLastNm" value="Duong" />
-                                    <input type="hidden" name="buyerPhone" value="0919636851" />
-                                    <input type="hidden" name="buyerCountry" value="VN" />
-                                    <input type="hidden" name="callBackUrl" value="https://www.lg.com/vn/shop/epay/response/index/" />
-                                    <input type="hidden" name="notiUrl" value="https://www.lg.com/vn/shop/rest/V1/payment/epay/callback/" />
-                                    <input type="hidden" name="reqDomain" value="https://www.lg.com/vn/shop/" />
-                                    <input type="hidden" name="fee" value="0" />
-                                    <input type="hidden" name="description" value="LG Electronics Vietnam" />
-                                    <input type="hidden" name="merchantToken" value="ba114ab92294b2c75b5e14aec5c2e9b6592dd8fb9b4af96e5e6d4a6f6b07097f" />
-                                    <input type="hidden" name="userLanguage" value="VN" />
-                                    <input type="hidden" name="timeStamp" value="1692110126" />
-                                    <input type="hidden" name="merTrxId" value="LGVN00000173000192700" />
-                                    <input type="hidden" name="payType" value="DC" />
-                                    <input type="hidden" name="userId" value="null" />
-                                    <input type="hidden" name="ipinfo" value="ip=2001:ee0:2ea:9edd:60d5:64f5:e1a3:6da5&amp;loc=VN" />
-                                    <div>
-                                        <div id="paymentLayer" class="payment_layer" style={{ display: 'block' }}>
-                                            <div class="payment_bg"></div>
-                                            <div id="payment_box" class="payment_pop_layer" style={{ marginTop: '-325px', marginLeft: '-400px' }}>
-                                                <div class="payment_pop_container">
-                                                    <div class="payment_pop_conts">
-                                                        <iframe name="paymentF" id="paymentF" width="100%" height="100%" marginwidth="0" marginheight="0" frameborder="0" scrolling="no" style={{ backgroundImage: 'url(../images/progress.gif)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center center' }}></iframe>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </Form>
-                                 
-                            </div>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <div className="btn btn-primary " style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center' }} onClick={handleClosePay}>
-                            Đóng
-                        </div>
-                    </Modal.Footer>
-                </Modal> */}
-                {/* <form id="megapayForm" name="megapayForm" method="POST" >
-                    <input type="hidden" name="invoiceNo" value="" />
-                    <input type="hidden" name="amount" value="" />
-                    <input type="hidden" name="currency" value="VND" />
-                    <input type="hidden" name="goodsNm" value="" />
-                    <input type="hidden" name="fee" value="" />
+                </Modal >
 
 
-                    <input type="hidden" name="buyerFirstNm" value="" />
-                    <input type="hidden" name="buyerLastNm" value="" />
-                    <input type="hidden" name="buyerPhone" value="" />
-                    <input type="hidden" name="buyerEmail" value="" />
-                    <input type="hidden" name="buyerAddr" value="hanoi" />
-                    <input type="hidden" name="buyerCity" value="hanoi" />
-                    <input type="hidden" name="buyerState" value="hanoi" />
-                    <input type="hidden" name="buyerPostCd" value="12950" />
-                    <input type="hidden" name="buyerCountry" value="" />
-                    <input type="hidden" name="receiverLastNm" value="" />
-                    <input type="hidden" name="receiverFirstNm" value="" />
-                    <input type="hidden" name="receiverPhone" value="" />
-                    <input type="hidden" name="receiverState" value="" />
-                    <input type="hidden" name="receiverPostCd" value="12950" />
-                    <input type="hidden" name="receiverCountry" value="" />
-
-
-                    <input type="hidden" name="callBackUrl" value="https://demo.megapay.vn/callback/transactionHandle" />
-
-                    <input type="hidden" name="notiUrl" value="https://demo.megapay.vn/ipn/transactionHandle" />
-
-                    <input type="hidden" name="merId" value="" />
-
-                    <input type="hidden" name="reqDomain" value="http://localhost:8080" />
-                    <input type="hidden" name="userId" value="0" />
-                    <input type="hidden" name="userLanguage" value="VN" />
-                    <input type="hidden" name="merchantToken" value="" />
-                    <input type="hidden" name="payToken" value="" />
-                    <input type="hidden" name="timeStamp" value="" />
-                    <input type="hidden" name="merTrxId" />
-                    <input type="hidden" name="windowType" value="" />
-                    <input type="hidden" name="windowColor" value="" />
-                    <input type="hidden" name="userFee" value="" />
-                    <input type="hidden" name="vaCondition" value="03" />
-                    <input type="hidden" name="payType" value="" />
-                    <input type="hidden" name="payOption" value="" />
-                    <input type="hidden" name="vaStartDt" value="20230816120429" />
-                    <input type="hidden" name="vaEndDt" value="20240216235959" />
-                    <input type="hidden" name="bankCode" value="" />
-                    <input type="hidden" name="description" value="" />
-                </form> */}
-                <form id="paymentForm">
-                    <input type="hidden" name="productName" id="productName" value="Samsung Galaxy" />
-                    <input type="hidden" name="productAmount" id="productAmount" value="2000000" />
-                    <input type="hidden" name="paymentFee" id="paymentFee" value="0" />
-                    <input type="hidden" name="paymentMethod" id="paymentMethod" value="NO" data-bankcode="" />
-                    <input type="hidden" name="windowColor" id="windowColor" value="" />
-                    <input type="hidden" name="saveCard" id="saveCard" value="PAY_CREATE_TOKEN" />
-                    <input type="hidden" name="tokenId" id="tokenId" value="" />
-                    <input type="hidden" name="merId" id="merId" value="MGPDEMO003" />
-                </form>
-
-            </div>
-        </div>
+            </div >
+        </div >
 
     );
 };

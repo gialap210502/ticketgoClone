@@ -1,13 +1,34 @@
 import React from 'react';
 import i26 from '../../assets/mediaImg/i26.jpg';
+import { useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import moment from 'moment';
+
 const Order = () => {
+
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+
+    const resultMsg = searchParams.get('resultMsg');
+    const invoiceNo = searchParams.get('invoiceNo');
+    const goodsNm = searchParams.get('goodsNm');
+    const amount = searchParams.get('amount');
+    const buyerFirstNm = searchParams.get('buyerFirstNm');
+    const buyerLastNm = searchParams.get('buyerLastNm');
+    const timeStamp = searchParams.get('timeStamp');
+    const cardNo = searchParams.get('cardNo');
+    const bankId = searchParams.get('bankId');
+
+    const formattedDateString = moment(timeStamp, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss");
+
+
     return (
         <div className="container mt-3 mb-3">
             <div className="row">
                 <div className="alert alert-success">
                     CÁM ƠN ĐÃ ĐẶT ĐƠN HÀNG. VUI LÒNG KIỂM TRA THÔNG TIN ĐƠN HÀNG VÀ TÌNH TRẠNG THANH TOÁN NHƯ DƯỚI ĐÂY
                 </div>
-                <div className="alert alert-warning">
+                {/* <div className="alert alert-warning">
                     <div className="row">
                         <div className="col-3">
                             <img src={i26} style={{ maxWidth: '100%', height: 'auto' }} />
@@ -24,22 +45,20 @@ const Order = () => {
                             NỘI DUNG CHUYỂN KHOẢN: THANH TOAN (MÃ ĐƠN HÀNG) TÊN KHÁCH HÀNG
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <table className="table table-bordered table-sm">
                     <thead>
                         <tr className="table-secondary">
                             <th>KHÁCH HÀNG</th>
                             <th>MÃ ĐƠN HÀNG</th>
-                            <th>ĐIỆN THOẠI</th>
-                            <th>EMAIL</th>
+                            <th>cardNo</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Gialap</td>
-                            <td>23080214120</td>
-                            <td>091******6851</td>
-                            <td>gia******.com</td>
+                            <td>{buyerFirstNm}</td>
+                            <td>{invoiceNo}</td>
+                            <td>{cardNo}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -48,19 +67,13 @@ const Order = () => {
 
                         <tr className="table-secondary">
                             <th>SỰ KIỆN</th>
-                            <th>NGÀY BẮT ĐẦU</th>
-                            <th>NGÀY KẾT THÚC</th>
-                            <th>NGÀY XEM SHOW/SỰ KIỆN</th>
-                            <th>ĐỊA CHỈ</th>
+                            <th>Ngày Mua</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Vở diễn À Ố Show</td>
-                            <td>18:00 01/08/2023</td>
-                            <td>20:01 31/12/2023</td>
-                            <td>18:00 15/08/2023</td>
-                            <td>Nhà hát thành phố , Số 7 cổng trường Lam Sơn, Quận 1, 1, Hồ Chí Minh</td>
+                            <td>{goodsNm}</td>
+                            <td>{formattedDateString}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -75,23 +88,23 @@ const Order = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Hạng AAH!</td>
+                            <td>{goodsNm}</td>
                             <td>1</td>
-                            <td>700,000 VND</td>
-                            <td>700,000 VND</td>
+                            <td>{amount} VND</td>
+                            <td>{amount} VND</td>
                         </tr>
                         <tr>
                             <td colspan="3">Tổng tiền</td>
-                            <td style={{ color: '#ff672a', fontWeight: 'bold' }}>700,000 VND</td>
+                            <td style={{ color: '#ff672a', fontWeight: 'bold' }}>{amount} VND</td>
                         </tr>
                         <tr>
                             <td colspan="3">Trạng thái</td>
-                            <td style={{ color: '#ff672a', fontWeight: 'bold' }}>Chưa thanh toán</td>
+                            <td style={{ color: '#ff672a', fontWeight: 'bold' }}>{resultMsg}</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <button type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Quay lại trang chủ</button>
+                <a href="/" type="button" class="btn btn-info" style={{ background: '#ff672a', borderColor: '#ff672a', fontSize: '14px', textAlign: 'center', color: '#fff' }}>Quay lại trang chủ</a>
             </div>
         </div>
     );
