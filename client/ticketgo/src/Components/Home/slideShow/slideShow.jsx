@@ -3,30 +3,32 @@ import slide2 from '../../../assets/imgSlide/slide2.jpg';
 import slide3 from '../../../assets/imgSlide/slide3.jpg';
 // import { Carousel } from 'react-bootstrap';
 import Carousel from 'react-bootstrap/Carousel';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 const SlideShow = () => {
-
+    let itemList = useSelector((state)=> state.listItem.getList.current.items)
     const [listItems, setListItems] = useState([]);
-    const fetchData = async () => {
-        try {
-            const authtoken = await axios.get('http://localhost:5500/auth');
-            console.log(authtoken);
-            const list = await axios.get('http://localhost:5500/listTableRecords');
-            console.log(list.data.items);
-            setListItems(list.data.items);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const fetchData = async () => {
+    //     try {
+    //         const authtoken = await axios.get('http://localhost:5500/auth');
+    //         console.log(authtoken);
+    //         const list = await axios.get('http://localhost:5500/listTableRecords');
+    //         console.log(list.data.items);
+    //         setListItems(list.data.items);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     useEffect(() => {
-        fetchData();
+        // fetchData();
+
     }, []);
     return (
         <div>
             <Carousel>
-                {listItems?.map((item, index) => {
+                {itemList?.map((item, index) => {
                     if (index < 4) {
                         return (
                             <Carousel.Item key={item.id}>

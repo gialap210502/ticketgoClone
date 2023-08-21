@@ -1,51 +1,43 @@
 import React from 'react';
-import i1 from '../../../assets/mediaImg/i1.jpg';
-import i2 from '../../../assets/mediaImg/i2.jpg';
-import i3 from '../../../assets/mediaImg/i3.jpg';
-import i4 from '../../../assets/mediaImg/i4.jpg';
-import i5 from '../../../assets/mediaImg/i5.jpg';
-import i6 from '../../../assets/mediaImg/i6.jpg';
-import i7 from '../../../assets/mediaImg/i7.jpg';
-import i8 from '../../../assets/mediaImg/i8.jpg';
-import i9 from '../../../assets/mediaImg/i9.jpg';
 import i11 from '../../../assets/mediaImg/i11.png';
 import i12 from '../../../assets/mediaImg/i12.png';
 import i13 from '../../../assets/mediaImg/i13.png';
 import i14 from '../../../assets/mediaImg/i14.png';
 import i15 from '../../../assets/mediaImg/i15.png';
 import i16 from '../../../assets/mediaImg/i16.png';
-import i17 from '../../../assets/mediaImg/i17.jpg';
-import i18 from '../../../assets/mediaImg/i18.jpg';
-import i19 from '../../../assets/mediaImg/i19.jpg';
-import i20 from '../../../assets/mediaImg/i20.jpg';
-import slide3 from '../../../assets/imgSlide/slide3.jpg';
 import { useEffect, useState } from 'react';
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux';
+import { getCodeAuth, getList} from '../../../redux/apiRequest'
 
 const EventDisplay = () => {
-
+    let itemList = useSelector((state)=> state.listItem.getList.current.items)
+    console.log(itemList)
+    const dispatch = useDispatch();
     const [listItems, setListItems] = useState([]);
-    const fetchData = async () => {
-        try {
-            const authtoken = await axios.get('http://localhost:5500/auth');
-            console.log(authtoken);
-            const list = await axios.get('http://localhost:5500/listTableRecords');
-            console.log(list.data.items);
-            setListItems(list.data.items);
-        } catch (error) {
-            console.log(error);
-        }
-    };
+    // const fetchData = async () => {
+    //     try {
+    //         const authtoken = await axios.get('http://localhost:5500/auth');
+    //         console.log(authtoken);
+    //         const list = await axios.get('http://localhost:5500/listTableRecords');
+    //         getCodeAuth(dispatch);
+    //         getList(dispatch);
+    //         setListItems(list.data.items);
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // };
 
     useEffect(() => {
-        fetchData();
+        //  fetchData();
+        getCodeAuth(dispatch);
+        getList(dispatch);
     }, []);
 
     return (
         <div className="container" style={{ paddingBottom: '15px' }}>
             <div className="row">
-                {listItems?.map((item, index) => {
+                {itemList?.map((item, index) => {
                     if (index < 2) {
                         return (
                             <div className="col-6" key={item.id}>
@@ -60,7 +52,7 @@ const EventDisplay = () => {
                 })}
             </div>
             <div className="row" style={{ height: '150px', paddingTop: '10px' }}>
-                {listItems?.map((item, index) => {
+                {itemList?.map((item, index) => {
                     if (index >= 2 && index < 6) {
                         return (
                             <div className="col-sm-3" key={item.id}>
@@ -77,7 +69,7 @@ const EventDisplay = () => {
                 <h2>SỰ KIỆN SẮP DIỄN RA</h2>
             </div>
             <div className="row" >
-                {listItems?.map(item => (
+                {itemList?.map(item => (
                     <div class="col-md-4 col-sm-6 " key={item.id}>
                         <div className="rounded">
                             <div>

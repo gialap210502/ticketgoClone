@@ -5,14 +5,15 @@ const axios = require('axios');
 
 const urlAppToken = 'https://open.larksuite.com/open-apis/auth/v3/app_access_token/internal';
 const client = new lark.Client({
-    appId: 'cli_slkdjalasdkjasd',
-    appSecret: 'dskLLdkasdjlasdKK',
+    appId: 'cli_a45b055171f8d02f',
+    appSecret: 'GMLRgj2WVLmDp3uXHAXw2ujqQ554Pmjd',
 });
 const data = {
     "app_id": 'cli_a45b055171f8d02f',
     "app_secret": 'GMLRgj2WVLmDp3uXHAXw2ujqQ554Pmjd'
 };
 var tenant = '';
+
 
 
 router.get('/listTableRecords', async (req, res) => {
@@ -24,7 +25,6 @@ router.get('/listTableRecords', async (req, res) => {
             },
             params: {
                 view_id: 'vewgLHHRFG',
-                page_size: 20,
             },
         },
             lark.withTenantToken(tenant)

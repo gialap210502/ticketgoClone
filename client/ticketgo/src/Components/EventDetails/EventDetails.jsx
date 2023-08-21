@@ -6,18 +6,25 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-//import { getCodeAuth, getList } from '../../../redux/apiRequest';
+import { getCodeAuth, getList } from '../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
+import { addItemToCart, removeItemFromCart, updateCartItem } from '../../redux/cartSlice';
 const EventDetails = () => {
-    const [listItems, setListItems] = useState([]);
+    //const [itemList1, setitemList] = useState([]);
+
+    let ticketList = useSelector((state) => state.cart);
+
+
+    let itemList = useSelector((state) => state.listItem.getList.current.items)
+    const dispatch = useDispatch();
     const domain = 'https://sandbox.megapay.vn';
     const fetchData = async () => {
         try {
-            // getCodeAuth(dispatch);
-            // getList(dispatch);
-            const authtoken = await axios.get('http://localhost:5500/auth');
-            const list = await axios.get('http://localhost:5500/listTableRecords');
-            setListItems(list.data.items);
+            getCodeAuth(dispatch);
+            getList(dispatch);
+            // const authtoken = await axios.get('http://localhost:5500/auth');
+            // const list = await axios.get('http://localhost:5500/listTableRecords');
+            // setitemList(list.data.items);
 
         } catch (error) {
             console.log(error);
@@ -60,11 +67,11 @@ const EventDetails = () => {
 
     const merId = 'EPAY000001'
     const encodeKey = "rf8whwaejNhJiQG2bsFubSzccfRc/iRYyGUn6SPmT6y/L7A2XABbu9y4GvCoSTOTpvJykFi6b1G0crU8et2O0Q=="
-    
-    const merTrxId = timeStamp+eventId;
+
+    const merTrxId = timeStamp + eventId;
     const input_string = timeStamp + merTrxId + merId + amount + encodeKey
 
-    
+
 
     const sha256 = require('js-sha256');
     const merchantToken = sha256(input_string);
@@ -90,10 +97,33 @@ const EventDetails = () => {
         setAmount(newAmount);
     };
 
+    const handleAddItem = (id, productName, price) => {
+        const isTicket = ticketList.some((item)=>item.productName === productName && item.price === price);
+        if(!isTicket) {
+            dispatch(addItemToCart({
+                id: id,
+                productName: productName,
+                price: price,
+                amount: 1
+            }))
+        }
+        if(isTicket) {
+            dispatch(updateCartItem({
+                id: id,
+                productName: productName,
+                price: price,
+                amount: 2
+            }))
+        }
+        
+        alert('THem san pham thanh cong')
+    }
+    console.log(ticketList)
+
     return (
         <div>
             <div>
-                {listItems?.map((item, index) => {
+                {itemList?.map((item, index) => {
                     if (item.id && item.id.includes(eventId)) {
                         return (
                             <div>
@@ -218,7 +248,7 @@ const EventDetails = () => {
                         <h2 style={{ color: '#ff672a', border: 'none' }}> SỰ KIỆN LIÊN QUAN</h2>
                     </div>
                     <div className="row">
-                        {listItems?.map((item, index) => {
+                        {itemList?.map((item, index) => {
                             if (index < 8) {
                                 return (
                                     <div className="col-sm-3">
@@ -263,7 +293,7 @@ const EventDetails = () => {
                                             </Form.Group>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Điện thoại:</Form.Label>
-                                                <Form.Control type="text" placeholder="" name="buyerPhone" />
+                                                <Form.Control type="text" name="buyerPhone" />
                                             </Form.Group>
                                             {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Email:</Form.Label>
@@ -271,7 +301,7 @@ const EventDetails = () => {
                                             </Form.Group> */}
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Địa chỉ:</Form.Label>
-                                                <Form.Control type="email"  name="buyerAddr"/>
+                                                <Form.Control type="text" name="buyerAddr" />
                                             </Form.Group>
                                         </div>
                                     </div>
@@ -279,9 +309,9 @@ const EventDetails = () => {
                                         <div>
                                             <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>Giỏ hàng của bạn</h2>
                                             <div>
-                                                {listItems?.map((item, index) => {
+                                                {itemList?.map((item, index) => {
                                                     if (item.id && item.id.includes(eventId)) {
-                                                        const invoiceNo = eventId + amount+timeStamp
+                                                        const invoiceNo = eventId + amount + timeStamp
                                                         return (
                                                             <div key={index}>
                                                                 <input type="hidden" name="merId" value={merId} />
@@ -303,25 +333,26 @@ const EventDetails = () => {
                                                                 <input type="hidden" name="merchantToken" value={merchantToken} />
                                                                 {item.fields.Price?.map((priceItem, priceIndex) => {
                                                                     const priceValue = extractPrice(priceItem);
-                                                                    const handleCheckboxChange = (event) => {
-                                                                        if (event.target.checked) {
-                                                                            setAmount(amount + priceValue);
-                                                                        } else {
-                                                                            setAmount(amount - priceValue);
-                                                                        }
-                                                                    };
+                                                                    // const handleCheckboxChange = (event) => {
+                                                                    //     if (event.target.checked) {
+                                                                    //         setAmount(amount + priceValue);
+                                                                    //     } else {
+                                                                    //         setAmount(amount - priceValue);
+                                                                    //     }
+                                                                    // };
                                                                     return (
                                                                         <div key={priceIndex} className="row border-bottom">
                                                                             <span className="col-6 border-end">{item.fields["Product Name"]}</span>
                                                                             <span className="col-3 border-end">{priceItem} VNĐ</span>
                                                                             <div className="col-3">
                                                                                 <div className="input-group mb-3 input-group-sm">
-                                                                                    <input
+                                                                                    {/* <input
                                                                                         type="checkbox"
                                                                                         className="form-check-input"
                                                                                         onChange={handleCheckboxChange}
                                                                                         required
-                                                                                    />
+                                                                                    /> */}
+                                                                                    <a onClick={() => handleAddItem(item.fields.id, item.fields["Product Name"], priceItem)}>+ Thêm</a>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -342,11 +373,23 @@ const EventDetails = () => {
                                                             Tổng cộng
                                                         </div>
                                                     </div>
+                                                    {ticketList?.map((TicketChosen, index) => (
+                                                        <div key={index} className="row border-bottom">
+                                                            <span className="col-6 border-end">{TicketChosen.productName}</span>
+                                                            <span className="col-3 border-end">{TicketChosen.price} VNĐ</span>
+                                                            <div className="col-3">
+                                                                {/* <a onClick={()=>handleDelete(TicketChosen.productName)}>- Xóa</a> */}
+                                                            </div>
+                                                        </div>
+
+                                                    ))
+                                                    }
 
                                                     <div class="col-4 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
                                                         <p style={{ float: 'right', paddingTop: '7px' }}>{amount} VNĐ</p>
                                                     </div>
                                                 </div>
+
                                                 <div className="row" style={{ paddingTop: '20px' }}>
                                                     <div class="form-check">
                                                         <input type="checkbox" className="form-check-input" id="checkTerm" name="option1" value="something" />
