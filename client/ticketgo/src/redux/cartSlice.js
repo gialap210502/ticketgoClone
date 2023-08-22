@@ -7,14 +7,30 @@ const cartSlice = createSlice({
     initialState: [],
     reducers: {
         addItemToCart: (state, action) => {
-            state.push(action.payload);
+            const newItem = action.payload;
+            const existingItem = state.find(item => item.productName === newItem.productName && item.price === newItem.price);
+
+            if (existingItem) {
+                // Nếu sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng
+                existingItem.quantity += newItem.quantity;
+            } else {
+                // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
+                state.push(newItem);
+            }
         },
         updateCartItem: (state, action) => {
             const { index, updatedItem } = action.payload;
-            state[index] = updatedItem;
+
+            if (updatedItem.quantity === 0) {
+                // Nếu số lượng là 0, xóa sản phẩm khỏi giỏ hàng
+                state.splice(index, 1);
+            } else {
+                state[index] = updatedItem;
+            }
         },
         removeItemFromCart: (state, action) => {
-            return state.filter(item => item.id !== action.payload);
+            const { productName, price } = action.payload;
+            return state.filter(item => item.productName !== productName || item.price !== price);
         },
     },
 });

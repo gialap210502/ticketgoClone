@@ -98,27 +98,54 @@ const EventDetails = () => {
     };
 
     const handleAddItem = (id, productName, price) => {
-        const isTicket = ticketList.some((item)=>item.productName === productName && item.price === price);
-        if(!isTicket) {
+        const existingItem = ticketList.find(item => item.productName === productName && item.price === price);
+        if (existingItem) {
+            // Nếu sản phẩm đã tồn tại trong giỏ hàng, thực hiện cập nhật số lượng
+            const updatedItem = {
+                ...existingItem,
+                quantity: existingItem.quantity + 1
+            };
+            dispatch(updateCartItem({
+                index: ticketList.indexOf(existingItem),
+                updatedItem: updatedItem
+            }));
+        } else {
+            // Nếu sản phẩm chưa có trong giỏ hàng, thêm mới
             dispatch(addItemToCart({
                 id: id,
                 productName: productName,
                 price: price,
-                amount: 1
-            }))
+                quantity: 1 // Thêm trường số lượng
+            }));
         }
-        if(isTicket) {
-            dispatch(updateCartItem({
-                id: id,
-                productName: productName,
-                price: price,
-                amount: 2
-            }))
-        }
-        
-        alert('THem san pham thanh cong')
+        alert('Thêm sản phẩm thành công');
     }
-    console.log(ticketList)
+
+    // handleDeleteItem
+    const handleDeleteItem = (productName, price) => {
+        const existingItem = ticketList.find(item => item.productName === productName && item.price === price);
+        if (existingItem) {
+            if (existingItem.quantity > 1) {
+                // Giảm số lượng nếu lớn hơn 1
+                const updatedItem = {
+                    ...existingItem,
+                    quantity: existingItem.quantity - 1
+                };
+                dispatch(updateCartItem({
+                    index: ticketList.indexOf(existingItem),
+                    updatedItem: updatedItem
+                }));
+            } else {
+                // Xóa sản phẩm khỏi giỏ hàng nếu số lượng là 1
+                dispatch(removeItemFromCart({
+                    productName: productName,
+                    price: price
+                }));
+            }
+            alert('Xóa sản phẩm thành công');
+        }
+    }
+
 
     return (
         <div>
@@ -333,39 +360,46 @@ const EventDetails = () => {
                                                                 <input type="hidden" name="merchantToken" value={merchantToken} />
                                                                 {item.fields.Price?.map((priceItem, priceIndex) => {
                                                                     const priceValue = extractPrice(priceItem);
-                                                                    // const handleCheckboxChange = (event) => {
-                                                                    //     if (event.target.checked) {
-                                                                    //         setAmount(amount + priceValue);
-                                                                    //     } else {
-                                                                    //         setAmount(amount - priceValue);
-                                                                    //     }
-                                                                    // };
+
                                                                     return (
                                                                         <div key={priceIndex} className="row border-bottom">
                                                                             <span className="col-6 border-end">{item.fields["Product Name"]}</span>
                                                                             <span className="col-3 border-end">{priceItem} VNĐ</span>
                                                                             <div className="col-3">
                                                                                 <div className="input-group mb-3 input-group-sm">
-                                                                                    {/* <input
-                                                                                        type="checkbox"
-                                                                                        className="form-check-input"
-                                                                                        onChange={handleCheckboxChange}
-                                                                                        required
-                                                                                    /> */}
-                                                                                    <a onClick={() => handleAddItem(item.fields.id, item.fields["Product Name"], priceItem)}>+ Thêm</a>
+                                                                                    <a onClick={() => handleAddItem(item.fields.id, item.fields["Product Name"], priceItem)}>+</a>
+
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     );
                                                                 })}
+
                                                             </div>
                                                         );
                                                     }
                                                     return null;
                                                 })}
-
-
                                             </div>
+
+                                            {ticketList?.map((TicketChosen, index) => (
+                                                <div className="row" style={{ paddingTop: '20px' }}>
+                                                    <div class="col-8 border" >
+                                                        <span className="col-6 border-end">{TicketChosen.productName}</span>
+                                                    </div>
+                                                    <div class="col-1 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
+                                                        <p style={{ float: 'right', paddingTop: '7px' }}>{TicketChosen.quantity}</p>
+                                                    </div>
+                                                    <div class="col-1 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right', paddingTop: '7px' }}>
+                                                        <a onClick={() => handleDeleteItem(TicketChosen.productName, TicketChosen.price)} className='btn btn-danger'> X</a>
+                                                    </div>
+
+                                                </div>
+                                            ))}
+
+
+
+
                                             <div className="row" style={{ paddingTop: '20px' }}>
                                                 <div className="row" style={{ paddingTop: '20px' }}>
                                                     <div class="col-8 border" >
@@ -373,17 +407,7 @@ const EventDetails = () => {
                                                             Tổng cộng
                                                         </div>
                                                     </div>
-                                                    {ticketList?.map((TicketChosen, index) => (
-                                                        <div key={index} className="row border-bottom">
-                                                            <span className="col-6 border-end">{TicketChosen.productName}</span>
-                                                            <span className="col-3 border-end">{TicketChosen.price} VNĐ</span>
-                                                            <div className="col-3">
-                                                                {/* <a onClick={()=>handleDelete(TicketChosen.productName)}>- Xóa</a> */}
-                                                            </div>
-                                                        </div>
 
-                                                    ))
-                                                    }
 
                                                     <div class="col-4 border" style={{ color: '#ff672a', fontWeight: 'bold', float: 'right' }}>
                                                         <p style={{ float: 'right', paddingTop: '7px' }}>{amount} VNĐ</p>
