@@ -1,9 +1,9 @@
 import React from 'react';
-import PaymentForm from "../../PaymentForm";
+//import PaymentForm from "../../PaymentForm";
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useEffect, useState } from 'react';
-import axios from "axios";
+//import axios from "axios";
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
 import { getCodeAuth, getList } from '../../redux/apiRequest';
@@ -359,7 +359,7 @@ const EventDetails = () => {
                                                                 <input type="hidden" name="goodsNm" value={item.fields["Product Name"]} />
                                                                 <input type="hidden" name="payType" value="NO" />
                                                                 <input type="hidden" name="callBackUrl" value="http://localhost:3000/Order" />
-                                                                <input type="hidden" name="notiUrl" value="http://localhost:3000/callback" />
+                                                                <input type="hidden" name="notiUrl" value="http://localhost:3000/Order" />
                                                                 <input type="hidden" name="reqDomain" value="http://localhost:3000" />
                                                                 <input type="hidden" name="fee" value="0" />
                                                                 <input type="hidden" name="description" value="testsystem" />

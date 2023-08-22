@@ -5,7 +5,6 @@ import { useLocation } from 'react-router-dom';
 import moment from 'moment';
 
 const Order = () => {
-
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
