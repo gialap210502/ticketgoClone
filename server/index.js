@@ -1,4 +1,5 @@
 const express = require('express');
+const managerLarksuitToken = require('./managerToken/managerToken')
 const dotenv = require('dotenv');
 dotenv.config();
 const cors = require('cors');
@@ -22,4 +23,7 @@ app.use('/', Auth);
 
 
 //Add Port and connect to server
-app.listen(PORT, () => console.log("Server connected"));
+app.listen(PORT, async() => {
+    console.log("Server connected")
+    await managerLarksuitToken.handleGetAccessToken();
+});

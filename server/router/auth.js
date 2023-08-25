@@ -1,8 +1,8 @@
 const router = require("express").Router();
 const lark = require('@larksuiteoapi/node-sdk');
 const axios = require('axios');
-
-
+const midleware = require('../midleware/midleware');
+const managerToken = require('../managerToken/managerToken')
 const urlAppToken = 'https://open.larksuite.com/open-apis/auth/v3/app_access_token/internal';
 const client = new lark.Client({
     appId: 'cli_a45b055171f8d02f',
@@ -13,11 +13,13 @@ const data = {
     "app_secret": 'GMLRgj2WVLmDp3uXHAXw2ujqQ554Pmjd'
 };
 var tenant = '';
+var appToken = '';
+var codeGetUserToken = 'R8qjb9S2ualuZCs8E66l1JCUgYc';
+var refresh_token = '';
 
-
-
-router.get('/listTableRecords', async (req, res) => {
+router.get('/listTableRecords',midleware.verifyTokenLarkSuite, async (req, res) => {
     (async () => {
+        const tenantToken = managerToken.getUserAccessToken();
         for await (const item of await client.bitable.appTableRecord.listWithIterator({
             path: {
                 app_token: 'G0cxbn4u8aGSfospSw6lj0y6gOd',
@@ -27,7 +29,7 @@ router.get('/listTableRecords', async (req, res) => {
                 view_id: 'vewgLHHRFG',
             },
         },
-            lark.withTenantToken(tenant)
+            lark.withUserAccessToken(tenantToken.token)
         )) {
             //res.send(item);
             res.status(200).json(item);
@@ -41,7 +43,9 @@ router.get('/auth', async (req, res) => {
         axios.post(urlAppToken, data)
             .then(response => {
                 tenant = response.data.tenant_access_token;
-                res.status(200).json(tenant);
+                appToken = response.data.app_access_token;
+                //res.status(200).json(tenant);
+                res.status(200).json(response.data);
             })
             .catch(error => {
                 res.status(400).json('Lỗi: ' + error);
@@ -51,6 +55,27 @@ router.get('/auth', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+router.post('/getUserToken', async (req, res) => {
+    try {
+        // Using 'await' with a promise-based function for better error handling.
+        const response = await client.authen.accessToken.create({
+            data: {
+                grant_type: 'authorization_code',
+                code: codeGetUserToken,
+            },
+        }, lark.withTenantToken(appToken));
+        refresh_token = response.data.response.refresh_token;
+        console.log(refresh_token);
+        res.status(200).json(response); // Send the response as JSON.
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+
 
 module.exports = router;
 
