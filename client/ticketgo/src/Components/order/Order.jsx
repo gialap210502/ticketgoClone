@@ -5,9 +5,10 @@ import { useLocation } from 'react-router-dom';
 import { createOrder } from '../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
+import axios from "axios";
 
 const Order = () => {
-    const customerData = useSelector(state=>state.customer);
+    const customerData = useSelector(state => state.customer);
     const dispatch = useDispatch();
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
@@ -33,14 +34,14 @@ const Order = () => {
     const second = transTm.slice(4, 6);
     const targetTime = new Date(year, month, day, hour, minute, second);
     const millisecondsSinceEpoch = targetTime.getTime();
-    
+
     const formattedDateString = moment(timeStamp, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss");
-    if (resultCd === "00_000") {
+    if (resultCd === "00_000") { 
         const data = {
             "Total": parseFloat(amount),
             "Customer": customerData[0].NameCus,
             "Date": parseFloat(millisecondsSinceEpoch),
-            "Email":  customerData[0].Mail,
+            "Email": customerData[0].Mail,
             "Items": customerData[0].Items,
             "Orders": invoiceNo,
             "Phone": customerData[0].Phone,
@@ -113,23 +114,23 @@ const Order = () => {
                         <tr className="table-active">
                             <th>THÔNG TIN SẢN PHẨM</th>
                             <th>SỐ LƯỢNG</th>
-                            <th>GIÁ SẢN PHẨM</th>
                             <th>TỔNG GIÁ</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {customerData[0].Items.map((item, index) => (
+                            <tr key={index}>
+                                <td>{customerData[0].Items[index]}</td> {/* Replace 'something' with the correct property */}
+                                <td>{customerData[0].QtyEach[index]}</td>
+                            </tr>
+                        ))}
+
                         <tr>
-                            <td>{customerData[0].Items}</td>
-                            <td>{customerData[0].Qty}</td>
-                            <td>{amount} VND</td>
-                            <td>{amount} VND</td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">Tổng tiền</td>
+                            <td colSpan="2">Tổng tiền</td>
                             <td style={{ color: '#ff672a', fontWeight: 'bold' }}>{amount} VND</td>
                         </tr>
                         <tr>
-                            <td colspan="3">Trạng thái</td>
+                            <td colSpan="2">Trạng thái</td>
                             <td style={{ color: '#ff672a', fontWeight: 'bold' }}>{resultMsg}</td>
                         </tr>
                     </tbody>

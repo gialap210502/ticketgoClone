@@ -61,16 +61,16 @@ const EventDetails = () => {
 
         // Gọi hàm openPayment sau khi tệp script được tải
         iframe.onload = () => {
-            {
-                
+            { 
                 dispatch(addCustomer({
                     NameCus: customerName,
                     Phone: customerPhone,
                     Mail: customerMail,
                     Items: ticketList?.map((TicketChosen, index) => TicketChosen.price),
+                    QtyEach: ticketList?.map((TicketChosen, index) => TicketChosen.quantity),
                     Qty: ticketList?.reduce((total, TicketChosen) => total + TicketChosen.quantity, 0),
                 }))
-                // dispatch(removeAllCustomers())
+                 //dispatch(removeAllCustomers())
 
             }
             window.openPayment(1, domain);
