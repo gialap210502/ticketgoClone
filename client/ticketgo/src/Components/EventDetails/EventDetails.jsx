@@ -9,7 +9,25 @@ import { useParams } from 'react-router-dom';
 import { getCodeAuth, getList } from '../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItemToCart, removeItemFromCart, updateCartItem } from '../../redux/cartSlice';
+import { addCustomer, removeAllCustomers } from '../../redux/customerSlice';
 const EventDetails = () => {
+    //dataPost customer
+    const [customerName, setName] = useState("");
+    const [customerPhone, setPhone] = useState("");
+    const [customerMail, setEmail] = useState("");
+
+    const handleSetName = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleSetPhone = (event) => {
+        setPhone(event.target.value);
+    };
+
+    const handleSetMail = (event) => {
+        setEmail(event.target.value);
+    };
+
     //const [itemList1, setitemList] = useState([]);
 
     let ticketList = useSelector((state) => state.cart);
@@ -32,8 +50,10 @@ const EventDetails = () => {
     };
 
 
+
     const { eventId } = useParams();
     const handlePaymentClick = () => {
+
         // Gọi hàm khi người dùng chọn thanh toán
         const iframe = document.createElement('iframe');
         iframe.src = domain + '/pg_was/js/payment/layer/paymentClient.js';
@@ -41,6 +61,18 @@ const EventDetails = () => {
 
         // Gọi hàm openPayment sau khi tệp script được tải
         iframe.onload = () => {
+            {
+                
+                dispatch(addCustomer({
+                    NameCus: customerName,
+                    Phone: customerPhone,
+                    Mail: customerMail,
+                    Items: ticketList?.map((TicketChosen, index) => TicketChosen.price),
+                    Qty: ticketList?.reduce((total, TicketChosen) => total + TicketChosen.quantity, 0),
+                }))
+                // dispatch(removeAllCustomers())
+
+            }
             window.openPayment(1, domain);
         };
     };
@@ -53,7 +85,6 @@ const EventDetails = () => {
 
     const [timeStamp, setTimeStamp] = useState('');
     const [amount, setAmount] = useState(0);
-    const [buyerFirstNm, setBuyerFirstNm] = useState('');
 
 
     const [selectedPriceIndex, setSelectedPriceIndex] = useState(null);
@@ -152,10 +183,10 @@ const EventDetails = () => {
     const handleMinusAmount = (price) => {
         if (amount > 0) {
             setAmount(amount - price);
-        }else{
+        } else {
             setAmount(0);
         }
-        
+
     }
 
     return (
@@ -327,16 +358,16 @@ const EventDetails = () => {
                                             <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>THÔNG TIN KHÁCH HÀNG</h2>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Họ Tên:</Form.Label>
-                                                <Form.Control type="text" name="buyerFirstNm" />
+                                                <Form.Control type="text" name="buyerFirstNm" value={customerName} onChange={handleSetName} />
                                             </Form.Group>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Điện thoại:</Form.Label>
-                                                <Form.Control type="text" name="buyerPhone" />
+                                                <Form.Control type="text" name="buyerPhone" value={customerPhone} onChange={handleSetPhone}/>
                                             </Form.Group>
-                                            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Email:</Form.Label>
-                                                <Form.Control type="text"  name="buyerEmail"/>
-                                            </Form.Group> */}
+                                                <Form.Control type="text" name="buyerEmail" value={customerMail} onChange={handleSetMail}/>
+                                            </Form.Group>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Địa chỉ:</Form.Label>
                                                 <Form.Control type="text" name="buyerAddr" />

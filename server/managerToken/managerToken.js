@@ -37,7 +37,7 @@ async function handleGetAccessToken() {
     return await client.authen.accessToken.create({
         data: {
             grant_type: 'authorization_code',
-            code: '0d9oc0daff014aa0ad1de4bd7bm53ape',
+            code: '80dk4b0cb3554ef2b39697edacqfc3u4',
         },
     },
         lark.withTenantToken(appToken)
