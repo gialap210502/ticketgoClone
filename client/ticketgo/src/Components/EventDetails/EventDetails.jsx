@@ -9,7 +9,25 @@ import { useParams } from 'react-router-dom';
 import { getCodeAuth, getList } from '../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
 import { addItemToCart, removeItemFromCart, updateCartItem } from '../../redux/cartSlice';
+import { addCustomer, removeAllCustomers } from '../../redux/customerSlice';
 const EventDetails = () => {
+        //dataPost customer
+        const [customerName, setName] = useState("");
+        const [customerPhone, setPhone] = useState("");
+        const [customerMail, setEmail] = useState("");
+    
+        const handleSetName = (event) => {
+            setName(event.target.value);
+        };
+    
+        const handleSetPhone = (event) => {
+            setPhone(event.target.value);
+        };
+    
+        const handleSetMail = (event) => {
+            setEmail(event.target.value);
+        };
+    
     //const [itemList1, setitemList] = useState([]);
 
     let ticketList = useSelector((state) => state.cart);
@@ -41,7 +59,6 @@ const EventDetails = () => {
 
         // Gọi hàm openPayment sau khi tệp script được tải
         iframe.onload = () => {
-<<<<<<< HEAD
             { 
                 dispatch(addCustomer({
                     NameCus: customerName,
@@ -54,8 +71,6 @@ const EventDetails = () => {
                  //dispatch(removeAllCustomers())
 
             }
-=======
->>>>>>> parent of f97a7247 (Check Order but payment Qty is not ok)
             window.openPayment(1, domain);
         };
     };

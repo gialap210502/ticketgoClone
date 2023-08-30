@@ -37,11 +37,7 @@ async function handleGetAccessToken() {
     return await client.authen.accessToken.create({
         data: {
             grant_type: 'authorization_code',
-<<<<<<< HEAD
-            code: '626ncdfdbc2046bc8a3bc94664i833o8',
-=======
-            code: '0d9oc0daff014aa0ad1de4bd7bm53ape',
->>>>>>> parent of f97a7247 (Check Order but payment Qty is not ok)
+            code: '01cu6c32a6d548a886f3880f03k58cq3',
         },
     },
         lark.withTenantToken(appToken)

@@ -29,7 +29,7 @@ const EventDisplay = () => {
     // };
 
     useEffect(() => {
-        //  fetchData();
+        console.log('Loading');
         getCodeAuth(dispatch);
         getList(dispatch);
     }, []);
