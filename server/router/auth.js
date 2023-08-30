@@ -76,34 +76,6 @@ router.post('/getUserToken', async (req, res) => {
     }
 });
 
-router.post('/order', midleware.verifyTokenLarkSuite, async(req, res)=>{
-    const userToken = managerToken.getUserAccessToken();
-    client.bitable.appTableRecord.create({
-        path: {
-            app_token: 'G0cxbn4u8aGSfospSw6lj0y6gOd',
-            table_id: 'tbllmMHjhoaJ5Ve8',
-        },
-        data: {
-            "fields": {
-                "Total": req.body.Total,
-                "Customer": req.body.Customer,
-                "Date": req.body.Date,
-                "Email": req.body.Email,
-                "Items": req.body.Items,
-                "Orders": req.body.Orders,
-                "Phone": req.body.Phone,
-                "Qty": req.body.Qty
-            }
-        },
-    },
-        lark.withUserAccessToken(userToken.token)
-    ).then(response => {
-        console.log(response);
-        res.json('Create Successful')
-    }).catch(error => {
-        console.error('Error creating table record:', error);
-    });
-})
 
 
 module.exports = router;

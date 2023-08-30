@@ -2,19 +2,19 @@ import React from 'react';
 import i26 from '../../assets/mediaImg/i26.jpg';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
-import { createOrder } from '../../redux/apiRequest';
-import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
 import axios from "axios";
 
 const Order = () => {
+<<<<<<< HEAD
     const customerData = useSelector(state => state.customer);
     const dispatch = useDispatch();
+=======
+>>>>>>> parent of f97a7247 (Check Order but payment Qty is not ok)
     const location = useLocation();
     const searchParams = new URLSearchParams(location.search);
 
     const resultMsg = searchParams.get('resultMsg');
-    const resultCd = searchParams.get('resultCd');
     const invoiceNo = searchParams.get('invoiceNo');
     const goodsNm = searchParams.get('goodsNm');
     const amount = searchParams.get('amount');
@@ -24,6 +24,7 @@ const Order = () => {
     const cardNo = searchParams.get('cardNo');
     const bankId = searchParams.get('bankId');
 
+<<<<<<< HEAD
     const transDt = searchParams.get('transDt');
     const transTm = searchParams.get('transTm');
     const year = transDt.slice(0, 4);
@@ -49,6 +50,10 @@ const Order = () => {
         };
         createOrder(dispatch, data);
     }
+=======
+    const formattedDateString = moment(timeStamp, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss");
+
+>>>>>>> parent of f97a7247 (Check Order but payment Qty is not ok)
 
     return (
         <div className="container mt-3 mb-3">
@@ -78,8 +83,6 @@ const Order = () => {
                     <thead>
                         <tr className="table-secondary">
                             <th>KHÁCH HÀNG</th>
-                            <th>Emai</th>
-                            <th>Số Điện Thoại </th>
                             <th>MÃ ĐƠN HÀNG</th>
                             <th>cardNo</th>
                         </tr>
@@ -87,8 +90,6 @@ const Order = () => {
                     <tbody>
                         <tr>
                             <td>{buyerFirstNm}</td>
-                            <td>{customerData[0].Mail}</td>
-                            <td>{customerData[0].Phone}</td>
                             <td>{invoiceNo}</td>
                             <td>{cardNo}</td>
                         </tr>
@@ -126,7 +127,17 @@ const Order = () => {
                         ))}
 
                         <tr>
+<<<<<<< HEAD
                             <td colSpan="2">Tổng tiền</td>
+=======
+                            <td>{goodsNm}</td>
+                            <td>1</td>
+                            <td>{amount} VND</td>
+                            <td>{amount} VND</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">Tổng tiền</td>
+>>>>>>> parent of f97a7247 (Check Order but payment Qty is not ok)
                             <td style={{ color: '#ff672a', fontWeight: 'bold' }}>{amount} VND</td>
                         </tr>
                         <tr>

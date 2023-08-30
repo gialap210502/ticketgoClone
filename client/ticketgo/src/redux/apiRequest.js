@@ -1,9 +1,11 @@
 import axios from "axios";
-import { getListStart, getListFailed, getListSuccess} from "./authSlice";
-import { orderStart, orderSuccess, orderFail} from "./orderSlice";
+import {
+    getListStart, getListFailed, getListSuccess
+} from "./authSlice";
 
 axios.defaults.baseURL = 'http://localhost:5500/';
 
+<<<<<<< HEAD
 export const createOrder = async (dispatch,data) => {
     dispatch(orderStart());
     try {
@@ -15,6 +17,8 @@ export const createOrder = async (dispatch,data) => {
 }
 
 
+=======
+>>>>>>> parent of f97a7247 (Check Order but payment Qty is not ok)
 export const getCodeAuth = async (dispatch) => {
     dispatch(getListStart());
     try {
