@@ -38,7 +38,6 @@ router.get('/listTableRecords',midleware.verifyTokenLarkSuite, async (req, res) 
 });
 
 
-
 router.get('/auth', async (req, res) => {
     try {
         axios.post(urlAppToken, data)
