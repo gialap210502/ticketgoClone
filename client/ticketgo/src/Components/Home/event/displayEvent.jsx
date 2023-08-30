@@ -14,8 +14,7 @@ const EventDisplay = () => {
     
     const dispatch = useDispatch();
 
-    useLayoutEffect(() => {
-        console.log('Loading');
+    useEffect(() => {
         getCodeAuth(dispatch);
         getList(dispatch);
     }, []);

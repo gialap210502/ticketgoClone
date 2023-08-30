@@ -36,6 +36,24 @@ router.get('/listTableRecords',midleware.verifyTokenLarkSuite, async (req, res) 
         }
     })();
 });
+router.get('/listRecords', async (req, res) => {
+    (async () => {
+        for await (const item of await client.bitable.appTableRecord.listWithIterator({
+            path: {
+                app_token: 'G0cxbn4u8aGSfospSw6lj0y6gOd',
+                table_id: 'tbllmMHjhoaJ5Ve8',
+            },
+            params: {
+                view_id: 'vewrCTduB5',
+            },
+        },
+            lark.withTenantToken(tenant)
+        )) {
+            //res.send(item);
+            res.status(200).json(item);
+        }
+    })();
+});
 
 
 router.get('/auth', async (req, res) => {
@@ -66,7 +84,6 @@ router.post('/getUserToken', async (req, res) => {
             },
         }, lark.withTenantToken(appToken));
         refresh_token = response.data.response.refresh_token;
-        console.log(refresh_token);
         res.status(200).json(response); // Send the response as JSON.
 
     } catch (error) {
@@ -74,6 +91,35 @@ router.post('/getUserToken', async (req, res) => {
         res.status(500).json({ error: 'An error occurred' });
     }
 });
+
+router.post('/order', midleware.verifyTokenLarkSuite, async(req, res)=>{
+    const userToken = managerToken.getUserAccessToken();
+    client.bitable.appTableRecord.create({
+        path: {
+            app_token: 'G0cxbn4u8aGSfospSw6lj0y6gOd',
+            table_id: 'tbllmMHjhoaJ5Ve8',
+        },
+        data: {
+            "fields": {
+                "Total": req.body.Total,
+                "Customer": req.body.Customer,
+                "Date": req.body.Date,
+                "Email": req.body.Email,
+                "Items": req.body.Items,
+                "Orders": req.body.Orders,
+                "Phone": req.body.Phone,
+                "Qty": req.body.Qty
+            }
+        },
+    },
+        lark.withUserAccessToken(userToken.token)
+    ).then(response => {
+        console.log(response);
+        res.json('Create Successful')
+    }).catch(error => {
+        console.error('Error creating table record:', error);
+    });
+})
 
 
 

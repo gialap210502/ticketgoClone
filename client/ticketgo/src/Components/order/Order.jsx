@@ -6,6 +6,7 @@ import moment from 'moment';
 import axios from "axios";
 import { createOrder } from '../../redux/apiRequest';
 import { useSelector, useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 const Order = () => {
     const customerData = useSelector(state => state.customer);
@@ -36,19 +37,57 @@ const Order = () => {
     const millisecondsSinceEpoch = targetTime.getTime();
 
     const formattedDateString = moment(timeStamp, "YYYYMMDDHHmmss").format("YYYY-MM-DD HH:mm:ss");
-    if (resultCd === "00_000") {
-        const data = {
-            "Total": parseFloat(amount),
-            "Customer": customerData[0].NameCus,
-            "Date": parseFloat(millisecondsSinceEpoch),
-            "Email": customerData[0].Mail,
-            "Items": customerData[0].Items,
-            "Orders": invoiceNo,
-            "Phone": customerData[0].Phone,
-            "Qty": parseFloat(customerData[0].Qty)
-        };
-        createOrder(dispatch, data);
+    const [listItems, setListItems] = useState([]);
+    const fetchData = async () => {
+        try {
+            const authtoken = await axios.get('http://localhost:5500/auth');
+            const list = await axios.get('http://localhost:5500/listRecords');
+
+            setListItems(list.data.items);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    for (let index = 0; index < listItems.length; index++) {
+        if(listItems[index].fields.Orders !== invoiceNo && index === listItems.length - 1) {
+            if (resultCd === "00_000") {
+                const data = {
+                    "Total": parseFloat(amount),
+                    "Customer": customerData[0].NameCus,
+                    "Date": parseFloat(millisecondsSinceEpoch),
+                    "Email": customerData[0].Mail,
+                    "Items": customerData[0].Items,
+                    "Orders": invoiceNo,
+                    "Phone": customerData[0].Phone,
+                    "Qty": parseFloat(customerData[0].Qty)
+                };
+                createOrder(dispatch, data);
+            }
+        }
     }
+
+
+    // if (resultCd === "00_000") {
+    //     const data = {
+    //         "Total": parseFloat(amount),
+    //         "Customer": customerData[0].NameCus,
+    //         "Date": parseFloat(millisecondsSinceEpoch),
+    //         "Email": customerData[0].Mail,
+    //         "Items": customerData[0].Items,
+    //         "Orders": invoiceNo,
+    //         "Phone": customerData[0].Phone,
+    //         "Qty": parseFloat(customerData[0].Qty)
+    //     };
+    //     createOrder(dispatch, data);
+    // }
+
+
+
 
     return (
         <div className="container mt-3 mb-3">

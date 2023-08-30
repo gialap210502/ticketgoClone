@@ -31,7 +31,7 @@ function Nav() {
                                 </div>
                             </form>
                         </div>
-                        <div className="col-xs-8 col-sm-6 col-md-4 col-lg-4 header_bar">
+                        {/* <div className="col-xs-8 col-sm-6 col-md-4 col-lg-4 header_bar">
                             <ul class="nav">
                                 <li class="nav-item">
                                     <button class="nav-link" style={{color: '#6c757d'}} onClick={handleShow}> Login</button>
@@ -40,19 +40,10 @@ function Nav() {
                                     <a class="nav-link" style={{color: '#6c757d'}} href="/register"> Register</a>
                                 </li>
                                 <li class="nav-item">
-                                    {/* <Dropdown>
-                                        <Dropdown.Toggle variant="light" >
-                                            
-                                        </Dropdown.Toggle>
 
-                                        <Dropdown.Menu>
-                                            <Dropdown.Item href="#one">English</Dropdown.Item>
-                                            <Dropdown.Item href="#two">Vietnamese</Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown> */}
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
 
                     </div>
                 </div>

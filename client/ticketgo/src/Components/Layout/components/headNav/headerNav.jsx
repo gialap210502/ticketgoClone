@@ -18,7 +18,7 @@ function NavHeader(){
                                     <li><a className='a-nav' href="https://ticketgo.vn/blog">Tin tức</a></li>
                                     <li><a className='a-nav' href="https://ticketgo.vn/videos">Video</a></li> */}
                                 </ul>
-                                <ul className="nav navbar-nav navbar-right navbar-form nav__form__location">
+                                {/* <ul className="nav navbar-nav navbar-right navbar-form nav__form__location">
                                     <select id="option_city" className="form-control" onChange="window.document.location.href=this.options[this.selectedIndex].value;">
                                         <option value="">Chọn địa điểm</option>
                                         <option value="/event/category/am-nhac">Hà Nội</option>
@@ -28,7 +28,7 @@ function NavHeader(){
                                         <option value="/event/category/am-nhac">Quảng Nam</option>
                                         <option value="/event/category/am-nhac">Đà Nẵng</option>
                                     </select>
-                                </ul>
+                                </ul> */}
                             {/* </div> */}
                         </nav>
                     </div>
