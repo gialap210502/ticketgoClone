@@ -60,16 +60,15 @@ const EventDetails = () => {
         // Gọi hàm openPayment sau khi tệp script được tải
         iframe.onload = () => {
             {
-                
+                dispatch(removeAllCustomers())
                 dispatch(addCustomer({
                     NameCus: customerName,
                     Phone: customerPhone,
                     Mail: customerMail,
                     Items: ticketList?.map((TicketChosen, index) => TicketChosen.price),
+                    QtyEach: ticketList?.map((TicketChosen, index) => TicketChosen.quantity),
                     Qty: ticketList?.reduce((total, TicketChosen) => total + TicketChosen.quantity, 0),
                 }))
-                // dispatch(removeAllCustomers())
-
             }
             window.openPayment(1, domain);
         };
@@ -357,16 +356,16 @@ const EventDetails = () => {
                                             <h2 style={{ textTransform: 'uppercase', fontSize: '14px' }}>THÔNG TIN KHÁCH HÀNG</h2>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Họ Tên:</Form.Label>
-                                                <Form.Control type="text" name="buyerFirstNm" />
+                                                <Form.Control type="text" name="buyerFirstNm" value={customerName} onChange={handleSetName}/>
                                             </Form.Group>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Điện thoại:</Form.Label>
-                                                <Form.Control type="text" name="buyerPhone" />
+                                                <Form.Control type="text" name="buyerPhone" value={customerPhone} onChange={handleSetPhone}/>
                                             </Form.Group>
-                                            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Email:</Form.Label>
-                                                <Form.Control type="text"  name="buyerEmail"/>
-                                            </Form.Group> */}
+                                                <Form.Control type="text"  name="buyerEmail" value={customerMail} onChange={handleSetMail}/>
+                                            </Form.Group>
                                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                                                 <Form.Label style={{ fontSize: '13px', fontWeight: 'bold' }}>Địa chỉ:</Form.Label>
                                                 <Form.Control type="text" name="buyerAddr" />

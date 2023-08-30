@@ -5,34 +5,21 @@ import i13 from '../../../assets/mediaImg/i13.png';
 import i14 from '../../../assets/mediaImg/i14.png';
 import i15 from '../../../assets/mediaImg/i15.png';
 import i16 from '../../../assets/mediaImg/i16.png';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect  } from 'react';
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux';
 import { getCodeAuth, getList} from '../../../redux/apiRequest'
 
 const EventDisplay = () => {
-    let itemList = useSelector((state)=> state.listItem.getList.current.items)
-    console.log(itemList)
+    
     const dispatch = useDispatch();
-    const [listItems, setListItems] = useState([]);
-    // const fetchData = async () => {
-    //     try {
-    //         const authtoken = await axios.get('http://localhost:5500/auth');
-    //         console.log(authtoken);
-    //         const list = await axios.get('http://localhost:5500/listTableRecords');
-    //         getCodeAuth(dispatch);
-    //         getList(dispatch);
-    //         setListItems(list.data.items);
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         console.log('Loading');
         getCodeAuth(dispatch);
         getList(dispatch);
     }, []);
+    let itemList = useSelector((state)=> state.listItem.getList.current.items);
 
     return (
         <div className="container" style={{ paddingBottom: '15px' }}>
@@ -77,9 +64,6 @@ const EventDisplay = () => {
                                     <img style={{ height: '200px' }} src={item.fields.Image} />
                                 </a>
                                 <div className="row">
-                                    {/* <div className="col-4">
-                                        <span class="fa fa-eye" style={{ color: '#ff672a' }}></span> 1,000
-                                    </div> */}
                                     <div className="col-6">
                                         <span class="fa fa-map-marker" style={{ color: '#ff672a' }}></span> {item.fields.address && item.fields.address.split(', ').pop()} <span>+</span>
                                     </div>
