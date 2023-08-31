@@ -8,8 +8,8 @@ const EventArtDisplay = () => {
     const [listItems, setListItems] = useState([]);
     const fetchData = async () => {
         try {
-            const authtoken = await axios.get('http://localhost:5500/auth');
-            const list = await axios.get('http://localhost:5500/listTableRecords');
+            const authtoken = await axios.get('https://lapduong.gcalls.vn/auth');
+            const list = await axios.get('https://lapduong.gcalls.vn/listTableRecords');
             setListItems(list.data.items);
         } catch (error) {
             console.log(error);

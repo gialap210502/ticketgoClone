@@ -40,8 +40,8 @@ const Order = () => {
     const [listItems, setListItems] = useState([]);
     const fetchData = async () => {
         try {
-            const authtoken = await axios.get('http://localhost:5500/auth');
-            const list = await axios.get('http://localhost:5500/listRecords');
+            const authtoken = await axios.get('https://lapduong.gcalls.vn/auth');
+            const list = await axios.get('https://lapduong.gcalls.vn/listRecords');
 
             setListItems(list.data.items);
         } catch (error) {

@@ -8,9 +8,9 @@ const EventSportDisplay = () => {
     const [listItems, setListItems] = useState([]);
     const fetchData = async () => {
         try {
-            const authtoken = await axios.get('http://localhost:5500/auth');
+            const authtoken = await axios.get('https://lapduong.gcalls.vn/auth');
             console.log(authtoken);
-            const list = await axios.get('http://localhost:5500/listTableRecords');
+            const list = await axios.get('https://lapduong.gcalls.vn/listTableRecords');
             console.log(list.data.items);
             setListItems(list.data.items);
         } catch (error) {

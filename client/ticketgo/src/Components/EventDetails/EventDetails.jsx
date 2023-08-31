@@ -387,9 +387,9 @@ const EventDetails = () => {
                                                                 <input type="hidden" name="invoiceNo" value={invoiceNo} />
                                                                 <input type="hidden" name="goodsNm" value={item.fields["Product Name"]} />
                                                                 <input type="hidden" name="payType" value="NO" />
-                                                                <input type="hidden" name="callBackUrl" value="http://localhost:3000/Order" />
-                                                                <input type="hidden" name="notiUrl" value="http://localhost:3000/Order" />
-                                                                <input type="hidden" name="reqDomain" value="http://localhost:3000" />
+                                                                <input type="hidden" name="callBackUrl" value="https://ticketgoclone.pages.dev/Order" />
+                                                                <input type="hidden" name="notiUrl" value="https://ticketgoclone.pages.dev/Order" />
+                                                                <input type="hidden" name="reqDomain" value="https://ticketgoclone.pages.dev" />
                                                                 <input type="hidden" name="fee" value="0" />
                                                                 <input type="hidden" name="description" value="testsystem" />
                                                                 <input type="hidden" name="userLanguage" value="VN" />

@@ -2,7 +2,7 @@ import axios from "axios";
 import { getListStart, getListFailed, getListSuccess} from "./authSlice";
 import { orderStart, orderSuccess, orderFail} from "./orderSlice";
 
-axios.defaults.baseURL = 'http://localhost:5500/';
+axios.defaults.baseURL = 'https://lapduong.gcalls.vn/';
 
 export const createOrder = async (dispatch,data) => {
     dispatch(orderStart());

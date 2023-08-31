@@ -5,20 +5,26 @@ import i13 from '../../../assets/mediaImg/i13.png';
 import i14 from '../../../assets/mediaImg/i14.png';
 import i15 from '../../../assets/mediaImg/i15.png';
 import i16 from '../../../assets/mediaImg/i16.png';
-import { useEffect, useState, useLayoutEffect  } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import axios from "axios";
 import { useSelector, useDispatch } from 'react-redux';
-import { getCodeAuth, getList} from '../../../redux/apiRequest'
+import { getCodeAuth, getList } from '../../../redux/apiRequest'
 
 const EventDisplay = () => {
-    
+    const state = useSelector((state) => state);
     const dispatch = useDispatch();
-
+    const [useEffectComplete, setUseEffectComplete] = useState(false);
     useEffect(() => {
         getCodeAuth(dispatch);
         getList(dispatch);
     }, []);
-    let itemList = useSelector((state)=> state.listItem.getList.current.items);
+    //let itemList = useSelector((state)=> state.listItem.getList.current.items);
+    let itemList = [];
+    if (state.listItem.getList.current && state.listItem.getList.current.items) {
+        itemList = state.listItem.getList.current.items;
+    }
+
+
 
     return (
         <div className="container" style={{ paddingBottom: '15px' }}>
